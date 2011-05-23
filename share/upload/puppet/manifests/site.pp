@@ -19,6 +19,16 @@ node inters {
 	}
 }
 
+node /.+\.alab.nii.ac.jp$/ {
+	$hostname_s = $hostname ?{
+		'kuruwa-gw' => 'kuruwa00',
+		default => '',
+	}
+
+	include 'torque'
+	include 'mongodb'
+}
+
 node /^inters-ec2-host\d+/ inherits inters { }
 node /.+\.sxu\.com$/ {
 		package { mailutils: ensure => installed }
