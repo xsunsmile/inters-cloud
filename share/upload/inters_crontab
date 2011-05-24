@@ -1,2 +1,0 @@
-MONGO_HOST=46.51.253.99
-* * * * * sudo mongo_get 46.51.253.99 /etc/tinc

@@ -1,5 +1,5 @@
-*.pri
+*/*.pri
 */*deb
 */*gem
-temp
-*-e
+*/temp
+*/*-e

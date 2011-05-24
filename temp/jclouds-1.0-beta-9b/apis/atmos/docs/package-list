@@ -1,0 +1,16 @@
+org.jclouds.atmos
+org.jclouds.atmos.binders
+org.jclouds.atmos.blobstore
+org.jclouds.atmos.blobstore.config
+org.jclouds.atmos.blobstore.functions
+org.jclouds.atmos.blobstore.strategy
+org.jclouds.atmos.config
+org.jclouds.atmos.domain
+org.jclouds.atmos.domain.internal
+org.jclouds.atmos.filters
+org.jclouds.atmos.functions
+org.jclouds.atmos.handlers
+org.jclouds.atmos.options
+org.jclouds.atmos.reference
+org.jclouds.atmos.util
+org.jclouds.atmos.xml

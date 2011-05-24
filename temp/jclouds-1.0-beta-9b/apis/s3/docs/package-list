@@ -1,0 +1,16 @@
+org.jclouds.s3
+org.jclouds.s3.binders
+org.jclouds.s3.blobstore
+org.jclouds.s3.blobstore.config
+org.jclouds.s3.blobstore.functions
+org.jclouds.s3.config
+org.jclouds.s3.domain
+org.jclouds.s3.domain.internal
+org.jclouds.s3.filters
+org.jclouds.s3.functions
+org.jclouds.s3.handlers
+org.jclouds.s3.options
+org.jclouds.s3.predicates.validators
+org.jclouds.s3.reference
+org.jclouds.s3.util
+org.jclouds.s3.xml

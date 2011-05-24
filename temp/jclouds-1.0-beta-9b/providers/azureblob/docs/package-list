@@ -1,0 +1,14 @@
+org.jclouds.azureblob
+org.jclouds.azureblob.binders
+org.jclouds.azureblob.blobstore
+org.jclouds.azureblob.blobstore.config
+org.jclouds.azureblob.blobstore.functions
+org.jclouds.azureblob.blobstore.strategy
+org.jclouds.azureblob.config
+org.jclouds.azureblob.domain
+org.jclouds.azureblob.domain.internal
+org.jclouds.azureblob.functions
+org.jclouds.azureblob.handlers
+org.jclouds.azureblob.options
+org.jclouds.azureblob.predicates.validators
+org.jclouds.azureblob.xml

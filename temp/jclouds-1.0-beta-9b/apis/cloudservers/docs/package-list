@@ -1,0 +1,11 @@
+org.jclouds.cloudservers
+org.jclouds.cloudservers.binders
+org.jclouds.cloudservers.compute.config
+org.jclouds.cloudservers.compute.functions
+org.jclouds.cloudservers.compute.strategy
+org.jclouds.cloudservers.compute.suppliers
+org.jclouds.cloudservers.config
+org.jclouds.cloudservers.domain
+org.jclouds.cloudservers.handlers
+org.jclouds.cloudservers.options
+org.jclouds.cloudservers.predicates

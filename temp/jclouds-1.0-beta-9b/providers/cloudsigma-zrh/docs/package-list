@@ -1,0 +1,13 @@
+org.jclouds.cloudsigma
+org.jclouds.cloudsigma.binders
+org.jclouds.cloudsigma.compute
+org.jclouds.cloudsigma.compute.config
+org.jclouds.cloudsigma.compute.functions
+org.jclouds.cloudsigma.config
+org.jclouds.cloudsigma.domain
+org.jclouds.cloudsigma.functions
+org.jclouds.cloudsigma.handlers
+org.jclouds.cloudsigma.options
+org.jclouds.cloudsigma.predicates
+org.jclouds.cloudsigma.reference
+org.jclouds.cloudsigma.util

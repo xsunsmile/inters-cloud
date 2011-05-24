@@ -1,21 +1,24 @@
 [submodule "3rdparty/jclouds"]
 	path = 3rdparty/jclouds
 	url = https://github.com/jclouds/jclouds.git
-[submodule "share/upload/puppet/modules/bridge-utils"]
-	path = share/upload/puppet/modules/bridge-utils
+[submodule "puppet-modules/bridge-utils"]
+	path = puppet-modules/bridge-utils
 	url = https://github.com/duritong/puppet-bridge-utils.git
-[submodule "share/upload/puppet/modules/common"]
-	path = share/upload/puppet/modules/common
+[submodule "puppet-modules/common"]
+	path = puppet-modules/common
 	url = https://github.com/duritong/puppet-common.git
-[submodule "share/upload/puppet/modules/mongodb"]
-	path = share/upload/puppet/modules/mongodb
+[submodule "puppet-modules/mongodb"]
+	path = puppet-modules/mongodb
 	url = git@github.com:xsunsmile/puppet-mongodb.git
-[submodule "share/upload/puppet/modules/tinc"]
-	path = share/upload/puppet/modules/tinc
+[submodule "puppet-modules/tinc"]
+	path = puppet-modules/tinc
 	url = git@github.com:xsunsmile/puppet-tinc.git
 [submodule "3rdparty/torque"]
 	path = 3rdparty/torque
 	url = git@github.com:xsunsmile/lrm-torque-clone.git
-[submodule "share/upload/puppet/modules/torque"]
-	path = share/upload/puppet/modules/torque
+[submodule "puppet-modules/torque"]
+	path = puppet-modules/torque
 	url = git@github.com:xsunsmile/puppet-torque.git
+[submodule "puppet-modules/apt"]
+	path = puppet-modules/apt
+	url = git@github.com:xsunsmile/puppet-aptget.git

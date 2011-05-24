@@ -1,7 +1,9 @@
 import "modules.pp"
 
 Exec { path => '/usr/bin:/bin:/usr/sbin:/sbin' }
-$MONGO_HOST='46.51.253.99'
+
+$extlookup_datadir = "/etc/puppet/manifests/extdata"
+$extlookup_precedence = ["%{fqdn}", "domain_%{domain}", "common"]
 
 node default {}
 

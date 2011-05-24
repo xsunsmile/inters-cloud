@@ -1,0 +1,6 @@
+org.jclouds.cloudfiles
+org.jclouds.cloudfiles.config
+org.jclouds.cloudfiles.domain
+org.jclouds.cloudfiles.functions
+org.jclouds.cloudfiles.options
+org.jclouds.cloudfiles.reference

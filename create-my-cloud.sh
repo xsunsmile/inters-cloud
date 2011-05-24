@@ -2,6 +2,13 @@
 inters_home="$HOME/.mybin"
 inters_env="$inters_home/share/upload/inters.sh"
 inters_cron="$inters_home/share/upload/inters_crontab"
+
+mongodb_version="1.8.1"
+mongodb_repo="deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen"
+mongodb_csv="$inters_home/share/upload/puppet/manifests/extdata/common.csv"
+echo "mongodb_repo,$mongodb_repo" | tee -a $mongodb_csv
+echo "mongodb_version,$mongodb_version" | tee -a $mongodb_csv
+
 source $inters_home/share/ec2-env.sh
 source $inters_home/share/settings.sh
 
@@ -27,23 +34,7 @@ else
 	chmod 600 $inters_home/share/$keypair
 fi
 
-sed -i -e "/^export MONGO_HOST/d" $inters_env
-echo "export MONGO_HOST=$pub_ip" | tee -a $inters_env
-
-rm $inters_cron && touch $inters_cron
-sed -i -e "/^MONGO_HOST/d" $inters_cron
-echo "MONGO_HOST=$pub_ip" | tee -a $inters_cron
-echo "* * * * * sudo mongo_get $pub_ip /etc/tinc" | tee -a $inters_cron
-
-sed -i -e "/MONGO_HOST/d" $inters_home/share/upload/puppet/manifests/site.pp
-sed -i -e "4i\\
-\$MONGO_HOST='$pub_ip'
-" $inters_home/share/upload/puppet/manifests/site.pp
-
-sed -i -e "/MONGO_HOST/d" $inters_home/share/upload/puppet/modules/mongodb/manifests/init.pp
-sed -i -e "17i\\
-\$mongo_host='$pub_ip'
-" $inters_home/share/upload/puppet/modules/mongodb/manifests/init.pp
+echo "mongodb_host,$pub_ip" | tee -a $mongodb_csv
 
 instance_id=`ec2-run-instances $ami_id -t $inst_type -k $keypair | grep ^INS | awk '{print $2}'`
 echo "allocate new instance: $instance_id"

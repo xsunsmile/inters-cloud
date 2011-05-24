@@ -1,0 +1,139 @@
+-classpath
+'/Users/adriancole/git/jclouds/drivers/enterprise/target/classes:/Users/adriancole/.m2/repository/net/oauth/core/oauth/20100527/oauth-20100527.jar:/Users/adriancole/.m2/repository/org/clojure/clojure/1.2.0/clojure-1.2.0.jar:/Users/adriancole/.m2/repository/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.jar:/Users/adriancole/.m2/repository/com/google/code/gson/gson/1.6/gson-1.6.jar:/Users/adriancole/.m2/repository/com/sun/jersey/jersey-core/1.4/jersey-core-1.4.jar:/Users/adriancole/.m2/repository/com/google/inject/guice/3.0-rc2/guice-3.0-rc2.jar:/Users/adriancole/.m2/repository/org/bouncycastle/bcprov-jdk15/1.44/bcprov-jdk15-1.44.jar:/Users/adriancole/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/Users/adriancole/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar:/Users/adriancole/.m2/repository/com/google/guava/guava/r08/guava-r08.jar:/Users/adriancole/.m2/repository/com/google/inject/extensions/guice-assistedinject/3.0-rc2/guice-assistedinject-3.0-rc2.jar:/Users/adriancole/.m2/repository/joda-time/joda-time/1.6.2/joda-time-1.6.2.jar:/Users/adriancole/git/jclouds/drivers/bouncycastle/target/jclouds-bouncycastle-1.0-beta-9b.jar:/Users/adriancole/git/jclouds/core/target/jclouds-core-1.0-beta-9b.jar:/Users/adriancole/.m2/repository/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar:/Users/adriancole/git/jclouds/drivers/joda/target/jclouds-joda-1.0-beta-9b.jar:/Users/adriancole/.m2/repository/org/clojure/clojure-contrib/1.2.0/clojure-contrib-1.2.0.jar'
+-encoding
+'UTF-8'
+-protected
+-quiet
+-sourcepath
+'/Users/adriancole/git/jclouds/drivers/enterprise/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2009-2011 <a href="http://www.jclouds.org/">jclouds</a>. All Rights Reserved.'
+-charset
+'UTF-8'
+-d
+'/Users/adriancole/git/jclouds/drivers/enterprise/target/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'jclouds enterprise Module 1.0-beta-9b API'
+-footer
+'<!-- Google Analytics --> <script type=\'text/javascript\'> var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); document.write(unescape("%3Cscript src=\'" + gaJsHost + "google-analytics.com/ga.js\' type=\'text/javascript\'%3E%3C/script%3E")); </script> <script type=\'text/javascript\'> try { var pageTracker = _gat._getTracker("UA-8638379-1"); pageTracker._trackPageview(); } catch(err) {}</script>'
+-link
+'http://download.oracle.com/javase/6/docs/api'
+-link
+'http://java.sun.com/javase/6/docs/api'
+-linkoffline
+'http://www.jclouds.org/jclouds-core/apidocs' '/Users/adriancole/git/jclouds/core/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/azure-common/apidocs' '/Users/adriancole/git/jclouds/common/azure/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/aws-common/apidocs' '/Users/adriancole/git/jclouds/common/aws/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/openstack-common/apidocs' '/Users/adriancole/git/jclouds/common/openstack/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/jclouds-scriptbuilder/apidocs' '/Users/adriancole/git/jclouds/scriptbuilder/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/jclouds-log4j/apidocs' '/Users/adriancole/git/jclouds/drivers/log4j/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/jclouds-compute/apidocs' '/Users/adriancole/git/jclouds/compute/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/jclouds-jsch/apidocs' '/Users/adriancole/git/jclouds/drivers/jsch/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/vcloud-common/apidocs' '/Users/adriancole/git/jclouds/common/vcloud/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/vcloudexpress/apidocs' '/Users/adriancole/git/jclouds/apis/vcloudexpress/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/trmk-common/apidocs' '/Users/adriancole/git/jclouds/common/trmk/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/jclouds-loadbalancer/apidocs' '/Users/adriancole/git/jclouds/loadbalancer/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/jclouds-blobstore/apidocs' '/Users/adriancole/git/jclouds/blobstore/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/filesystem/apidocs' '/Users/adriancole/git/jclouds/apis/filesystem/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/byon/apidocs' '/Users/adriancole/git/jclouds/apis/byon/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/s3/apidocs' '/Users/adriancole/git/jclouds/apis/s3/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/ec2/apidocs' '/Users/adriancole/git/jclouds/apis/ec2/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/walrus/apidocs' '/Users/adriancole/git/jclouds/apis/walrus/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/eucalyptus/apidocs' '/Users/adriancole/git/jclouds/apis/eucalyptus/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/swift/apidocs' '/Users/adriancole/git/jclouds/apis/swift/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/cloudfiles/apidocs' '/Users/adriancole/git/jclouds/apis/cloudfiles/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/cloudservers/apidocs' '/Users/adriancole/git/jclouds/apis/cloudservers/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/vcloud/apidocs' '/Users/adriancole/git/jclouds/apis/vcloud/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/elasticstack/apidocs' '/Users/adriancole/git/jclouds/apis/elasticstack/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/atmos/apidocs' '/Users/adriancole/git/jclouds/apis/atmos/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/gogrid/apidocs' '/Users/adriancole/git/jclouds/providers/gogrid/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/slicehost/apidocs' '/Users/adriancole/git/jclouds/providers/slicehost/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/cloudsigma-zrh/apidocs' '/Users/adriancole/git/jclouds/providers/cloudsigma-zrh/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/azureblob/apidocs' '/Users/adriancole/git/jclouds/providers/azureblob/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/aws-s3/apidocs' '/Users/adriancole/git/jclouds/providers/aws-s3/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/aws-ec2/apidocs' '/Users/adriancole/git/jclouds/providers/aws-ec2/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/googlestorage/apidocs' '/Users/adriancole/git/jclouds/providers/googlestorage/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/scaleup-storage/apidocs' '/Users/adriancole/git/jclouds/providers/scaleup-storage/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/synaptic-storage/apidocs' '/Users/adriancole/git/jclouds/providers/synaptic-storage/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/cloudonestorage/apidocs' '/Users/adriancole/git/jclouds/providers/cloudonestorage/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/eucalyptus-partnercloud-s3/apidocs' '/Users/adriancole/git/jclouds/providers/eucalyptus-partnercloud-s3/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/eucalyptus-partnercloud-ec2/apidocs' '/Users/adriancole/git/jclouds/providers/eucalyptus-partnercloud-ec2/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/cloudservers-us/apidocs' '/Users/adriancole/git/jclouds/providers/cloudservers-us/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/cloudservers-uk/apidocs' '/Users/adriancole/git/jclouds/providers/cloudservers-uk/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/cloudfiles-us/apidocs' '/Users/adriancole/git/jclouds/providers/cloudfiles-us/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/cloudfiles-uk/apidocs' '/Users/adriancole/git/jclouds/providers/cloudfiles-uk/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/bluelock-vcdirector/apidocs' '/Users/adriancole/git/jclouds/providers/bluelock-vcdirector/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/trmk-ecloud/apidocs' '/Users/adriancole/git/jclouds/providers/trmk-ecloud/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/trmk-vcloudexpress/apidocs' '/Users/adriancole/git/jclouds/providers/trmk-vcloudexpress/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/elastichosts-lon-p/apidocs' '/Users/adriancole/git/jclouds/providers/elastichosts-lon-p/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/elastichosts-sat-p/apidocs' '/Users/adriancole/git/jclouds/providers/elastichosts-sat-p/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/elastichosts-lon-b/apidocs' '/Users/adriancole/git/jclouds/providers/elastichosts-lon-b/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/openhosting-east1/apidocs' '/Users/adriancole/git/jclouds/providers/openhosting-east1/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/serverlove-z1-man/apidocs' '/Users/adriancole/git/jclouds/providers/serverlove-z1-man/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/skalicloud-sdg-my/apidocs' '/Users/adriancole/git/jclouds/providers/skalicloud-sdg-my/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/servermanager/apidocs' '/Users/adriancole/git/jclouds/skeletons/standalone-compute/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/jclouds-gae/apidocs' '/Users/adriancole/git/jclouds/drivers/gae/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/jclouds-apachehc/apidocs' '/Users/adriancole/git/jclouds/drivers/apachehc/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/jclouds-joda/apidocs' '/Users/adriancole/git/jclouds/drivers/joda/target/apidocs'
+-linkoffline
+'http://www.jclouds.org/jclouds-bouncycastle/apidocs' '/Users/adriancole/git/jclouds/drivers/bouncycastle/target/apidocs'
+-use
+-version
+-windowtitle
+'jclouds enterprise Module 1.0-beta-9b API'

@@ -1,0 +1,8 @@
+org.jclouds.filesystem
+org.jclouds.filesystem.config
+org.jclouds.filesystem.predicates.validators
+org.jclouds.filesystem.predicates.validators.internal
+org.jclouds.filesystem.reference
+org.jclouds.filesystem.strategy
+org.jclouds.filesystem.strategy.internal
+org.jclouds.filesystem.util.internal

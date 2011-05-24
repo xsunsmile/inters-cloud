@@ -1,0 +1,5 @@
+org.jclouds.vcloud.terremark
+org.jclouds.vcloud.terremark.compute.config
+org.jclouds.vcloud.terremark.compute.functions
+org.jclouds.vcloud.terremark.config
+org.jclouds.vcloud.terremark.suppliers

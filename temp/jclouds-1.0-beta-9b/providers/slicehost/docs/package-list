@@ -1,0 +1,12 @@
+org.jclouds.slicehost
+org.jclouds.slicehost.binders
+org.jclouds.slicehost.compute.config
+org.jclouds.slicehost.compute.functions
+org.jclouds.slicehost.compute.strategy
+org.jclouds.slicehost.compute.suppliers
+org.jclouds.slicehost.config
+org.jclouds.slicehost.domain
+org.jclouds.slicehost.filters
+org.jclouds.slicehost.handlers
+org.jclouds.slicehost.predicates
+org.jclouds.slicehost.xml
