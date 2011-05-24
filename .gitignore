@@ -1,5 +1,5 @@
 */*.pri
 */*deb
 */*gem
-*/temp
+temp
 */*-e
