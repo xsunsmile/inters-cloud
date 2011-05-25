@@ -4,7 +4,7 @@ mongodb_install_src,/tmp/mongodb
 torque_install_dist,/opt/torque
 torque_install_src,/tmp/torque
 torque_admin,root
-torque_master_name,inters_ec2_host1
+torque_master_name,inters-ec2-host1
 torque_complie_args_extra,
 torque_spool_dir,
-mongodb_host,46.51.254.114
+mongodb_host,175.41.239.231

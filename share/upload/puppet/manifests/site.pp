@@ -5,13 +5,13 @@ Exec { path => '/usr/bin:/bin:/usr/sbin:/sbin' }
 $extlookup_datadir = "/etc/puppet/manifests/extdata"
 $extlookup_precedence = ["%{fqdn}", "domain_%{domain}", "common"]
 
+include 'inters'
 node default {}
 
 node inters {
 	include 'tinc'
 	include 'mongodb'
 	include 'torque'
-	include 'inters'
 
 	package { mailutils: ensure => installed }
 
