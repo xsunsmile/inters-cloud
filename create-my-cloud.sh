@@ -3,11 +3,19 @@ inters_home="$HOME/.mybin"
 inters_env="$inters_home/share/upload/inters.sh"
 inters_cron="$inters_home/share/upload/inters_crontab"
 
-mongodb_version="1.8.1"
+common_csv="$inters_home/share/upload/puppet/manifests/extdata/common.csv"
+[ -e $common_csv ] && rm -rf $common_csv
 mongodb_repo="deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen"
-mongodb_csv="$inters_home/share/upload/puppet/manifests/extdata/common.csv"
-echo "mongodb_repo,$mongodb_repo" | tee -a $mongodb_csv
-echo "mongodb_version,$mongodb_version" | tee -a $mongodb_csv
+echo "mongodb_repo,$mongodb_repo" | tee -a $common_csv
+echo "mongodb_version,1.8.1" | tee -a $common_csv
+echo "mongodb_install_src,/tmp/mongodb" | tee -a $common_csv
+
+echo "torque_install_dist,/opt/torque" | tee -a $common_csv
+echo "torque_install_src,/tmp/torque" | tee -a $common_csv
+echo "torque_admin,root" | tee -a $common_csv
+echo "torque_master_name,inters-ec2-host1" | tee -a $common_csv
+echo "torque_complie_args_extra," | tee -a $common_csv
+echo "torque_spool_dir," | tee -a $common_csv
 
 source $inters_home/share/ec2-env.sh
 source $inters_home/share/settings.sh
@@ -34,7 +42,7 @@ else
 	chmod 600 $inters_home/share/$keypair
 fi
 
-echo "mongodb_host,$pub_ip" | tee -a $mongodb_csv
+echo "mongodb_host,$pub_ip" | tee -a $common_csv
 
 instance_id=`ec2-run-instances $ami_id -t $inst_type -k $keypair | grep ^INS | awk '{print $2}'`
 echo "allocate new instance: $instance_id"
@@ -97,4 +105,5 @@ tincport_ok=`ec2-describe-group $group | awk '{print $5","$6","$7}' | grep "^tcp
 
 puppet_role="client"
 [ $host_num -eq 1 ] && puppet_role="master"
-ssh -F ~/.ssh/config_inters "$hosttag_base$host_num" sudo ./upload/puppet/00_install-puppet.sh $puppet_role
+ssh -F ~/.ssh/config_inters "$hosttag_base$host_num" nohup nice -19 sudo ./upload/puppet/00_install-puppet.sh $puppet_role &
+ssh -F ~/.ssh/config_inters "$hosttag_base$host_num" sudo tail -f nohup.log

@@ -25,4 +25,4 @@ git clone https://github.com/xsunsmile/puppet-mongodb.git mongodb
 git clone https://github.com/xsunsmile/puppet-tinc.git tinc
 git clone https://github.com/xsunsmile/puppet-torque.git torque
 git clone https://github.com/xsunsmile/puppet-aptget.git apt
-
+git clone https://github.com/xsunsmile/puppet-inters-mgm.git inters

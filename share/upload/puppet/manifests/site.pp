@@ -11,6 +11,7 @@ node inters {
 	include 'tinc'
 	include 'mongodb'
 	include 'torque'
+	include 'inters'
 
 	package { mailutils: ensure => installed }
 

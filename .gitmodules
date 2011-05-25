@@ -22,3 +22,6 @@
 [submodule "puppet-modules/apt"]
 	path = puppet-modules/apt
 	url = git@github.com:xsunsmile/puppet-aptget.git
+[submodule "puppet-modules/inters"]
+	path = puppet-modules/inters
+	url = git@github.com:xsunsmile/puppet-inters-mgm.git
