@@ -3,22 +3,9 @@ inters_home="$HOME/.mybin"
 inters_env="$inters_home/share/upload/inters.sh"
 inters_cron="$inters_home/share/upload/inters_crontab"
 
-common_csv="$inters_home/share/upload/puppet/manifests/extdata/common.csv"
-[ -e $common_csv ] && rm -rf $common_csv
-mongodb_repo="deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen"
-echo "mongodb_repo,$mongodb_repo" | tee -a $common_csv
-echo "mongodb_version,1.8.1" | tee -a $common_csv
-echo "mongodb_install_src,/tmp/mongodb" | tee -a $common_csv
-
-echo "torque_install_dist,/opt/torque" | tee -a $common_csv
-echo "torque_install_src,/tmp/torque" | tee -a $common_csv
-echo "torque_admin,root" | tee -a $common_csv
-echo "torque_master_name,inters-ec2-host1" | tee -a $common_csv
-echo "torque_complie_args_extra," | tee -a $common_csv
-echo "torque_spool_dir," | tee -a $common_csv
-
 source $inters_home/share/ec2-env.sh
 source $inters_home/share/settings.sh
+source $inters_home/share/puppet_env.sh
 
 host_num=`ec2-describe-instances -F tag:Name=$hosttag_base* | grep "^TAG.*Name" | wc -l | grep -o "[0-9]\{1,10\}$"`
 if [ -z "$host_num" ]; then
@@ -64,7 +51,6 @@ if [ ! -z "$pub_ip" -a -z "$elastic_ip" ]; then
 	ec2-create-tags $master_instid -t ElasticIP=$pub_ip
 	inst_pubip=$pub_ip
 fi
-
 
 sshport_ok=`ec2-describe-group $group | awk '{print $5","$6","$7}' | grep "^tcp,22"`
 [ -z "$sshport_ok" ] && ec2-authorize $group -P tcp -p 22

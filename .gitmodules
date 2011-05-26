@@ -6,7 +6,7 @@
 	url = https://github.com/duritong/puppet-bridge-utils.git
 [submodule "puppet-modules/common"]
 	path = puppet-modules/common
-	url = https://github.com/duritong/puppet-common.git
+	url = git@github.com:xsunsmile/puppet-common.git
 [submodule "puppet-modules/mongodb"]
 	path = puppet-modules/mongodb
 	url = git@github.com:xsunsmile/puppet-mongodb.git

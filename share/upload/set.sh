@@ -20,9 +20,13 @@ sudo apt-get install -y git-core
 
 cd $HOME/upload/puppet/modules/
 git clone https://github.com/duritong/puppet-bridge-utils.git bridge-utils
-git clone https://github.com/duritong/puppet-common.git	common
+git clone https://github.com/xsunsmile/puppet-common.git common
 git clone https://github.com/xsunsmile/puppet-mongodb.git mongodb
 git clone https://github.com/xsunsmile/puppet-tinc.git tinc
 git clone https://github.com/xsunsmile/puppet-torque.git torque
 git clone https://github.com/xsunsmile/puppet-aptget.git apt
 git clone https://github.com/xsunsmile/puppet-inters-mgm.git inters
+cat <<EOF >update.sh
+for funs in {common,inters,mongodb,tinc,torque}; do cd $funs; git pull origin master; cd -; done
+EOF
+chmod +x update.sh
