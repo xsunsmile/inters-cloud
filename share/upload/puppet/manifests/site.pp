@@ -1,6 +1,7 @@
 import "modules.pp"
 
 Exec { path => '/usr/bin:/bin:/usr/sbin:/sbin' }
+Cron { environment => "MAILTO = root" }
 
 $extlookup_datadir = "/etc/puppet/manifests/extdata"
 $extlookup_precedence = ["%{fqdn}", "domain_%{domain}", "common"]
