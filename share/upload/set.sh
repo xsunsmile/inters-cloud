@@ -7,6 +7,7 @@ echo "$instance_tag" | tee /etc/hostname
 hostname $instance_tag
 node_ip=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
 sed -i "/^$node_ip/d" /etc/hosts
+echo "" | tee -a /etc/hosts
 echo "$node_ip  $instance_tag.$domain_name  $instance_tag" | tee -a /etc/hosts
 
 [ ! -e $HOME/.ssh ] && mkdir $HOME/.ssh
