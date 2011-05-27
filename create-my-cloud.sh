@@ -57,6 +57,8 @@ sshport_ok=`ec2-describe-group $group | awk '{print $5","$6","$7}' | grep "^tcp,
 
 if [ ! -e $ssh_config ]; then 
 	cat <<EOF > $ssh_config
+	ServerAliveInterval 30
+
 	user ubuntu
 	StrictHostKeyChecking no
 	identityFile $inters_home/share/$keypair
@@ -91,5 +93,5 @@ tincport_ok=`ec2-describe-group $group | awk '{print $5","$6","$7}' | grep "^tcp
 
 puppet_role="client"
 [ $host_num -eq 1 ] && puppet_role="master"
-ssh -F ~/.ssh/config_inters "$hosttag_base$host_num" nohup nice -19 sudo ./upload/puppet/00_install-puppet.sh $puppet_role &
-ssh -F ~/.ssh/config_inters "$hosttag_base$host_num" sudo tail -f nohup.log
+ssh -F ~/.ssh/config_inters "$hosttag_base$host_num" \
+"nohup nice -19 sudo ./upload/puppet/00_install-puppet.sh $puppet_role < /dev/null 2>&1 > nohup.out &"

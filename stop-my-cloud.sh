@@ -35,10 +35,12 @@ do
 done
 
 if [ "$FLG_T" = "TRUE" ]; then
-  elastic_ip=`ec2-describe-tags | awk '/ElasticIP/ {print $5}'`
-  instance_id=`ec2-describe-tags | awk '/ElasticIP/ {print $3}'`
-  if [ ! -z "$elastic_ip" -a ! -z "$instance_id" ]; then
-    ec2-release-address $elastic_ip
-    ec2-delete-tags $instance_id -t ElasticIP
+  if [ "$VALUE_N" = "1" -o "$FLG_A" = "TRUE" ]; then
+    elastic_ip=`ec2-describe-tags | awk '/ElasticIP/ {print $5}'`
+    instance_id=`ec2-describe-tags | awk '/ElasticIP/ {print $3}'`
+    if [ ! -z "$elastic_ip" -a ! -z "$instance_id" ]; then
+      ec2-release-address $elastic_ip
+      ec2-delete-tags $instance_id -t ElasticIP
+    fi
   fi
 fi

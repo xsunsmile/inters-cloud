@@ -23,6 +23,7 @@ sudo mv autosign.conf /etc/puppet/
 sudo cp -pr $base_dir/namespaceauth.conf /etc/puppet/
 sudo cp -pr $base_dir/modules /etc/puppet/
 sudo cp -pr $base_dir/manifests /etc/puppet/
-pgrep puppetmasterd | xargs sudo kill -9 2>&1 >/dev/null || echo "kill old puppetmaster"
-# [ -z "`ps aux | grep [p]uppetmasterd`" ] && sudo $gembin_path/puppetmasterd
+for pid in $(pgrep puppetmasterd); do
+  sudo kill -9 $pid 2>&1 >/dev/null
+done
 sudo $gembin_path/puppetmasterd
