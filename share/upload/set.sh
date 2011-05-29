@@ -28,8 +28,9 @@ if [ "$1" = "1" ]; then
   git clone https://github.com/xsunsmile/puppet-torque.git torque
   git clone https://github.com/xsunsmile/puppet-aptget.git apt
   git clone https://github.com/xsunsmile/puppet-inters-mgm.git inters
+  git clone https://github.com/xsunsmile/puppet-fpm.git fpm
   cat <<EOF >update.sh
-for funs in {common,inters,mongodb,tinc,torque}; do cd \$funs; git pull origin master; cd -; done
+for funs in {fpm,common,inters,mongodb,tinc,torque}; do cd \$funs; git pull origin master; cd -; done
 EOF
   chmod +x update.sh
 fi

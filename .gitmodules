@@ -25,3 +25,6 @@
 [submodule "puppet-modules/inters"]
 	path = puppet-modules/inters
 	url = git@github.com:xsunsmile/puppet-inters-mgm.git
+[submodule "puppet-modules/fpm"]
+	path = puppet-modules/fpm
+	url = git@github.com:xsunsmile/puppet-fpm.git

@@ -1,0 +1,8 @@
+InterSProject=~/.mybin CD=. filter="*.sh *.pp" {
+	README
+	create-my-cloud.sh
+	stop-my-cloud.sh
+	share = share {
+		
+	}
+}

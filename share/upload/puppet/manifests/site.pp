@@ -6,10 +6,12 @@ Cron { environment => "MAILTO = root" }
 $extlookup_datadir = "/etc/puppet/manifests/extdata"
 $extlookup_precedence = ["%{fqdn}", "domain_%{domain}", "common"]
 
-include 'inters'
+
 node default {}
 
-node inters {
+node /^inters-ec2-host\d+/ {
+	include 'inters'
+	include 'fpm'
 	include 'tinc'
 	include 'mongodb'
 	include 'torque'
@@ -23,7 +25,6 @@ node inters {
 	}
 }
 
-node /^inters-ec2-host\d+/ inherits inters { }
 node /.+\.sxu\.com$/ {
 		package { mailutils: ensure => installed }
 		package { python: ensure => installed }

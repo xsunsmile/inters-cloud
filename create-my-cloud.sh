@@ -73,8 +73,8 @@ EOF
 
 elastic_ip=`ec2-describe-tags | awk '/ElasticIP/ {print $5}'`
 sed -i -e "/^real_master/d" $inters_home/share/upload/puppet/01_update.sh
-sed -i -e "3i\ 
-real_master='$elastic_ip'; 
+sed -i -e "3i\
+real_master='$elastic_ip';
 " $inters_home/share/upload/puppet/01_update.sh
 
 scp -F ~/.ssh/config_inters -pr $inters_home/share/upload "$hosttag_base$host_num":.
