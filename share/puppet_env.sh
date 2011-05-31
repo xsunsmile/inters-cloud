@@ -14,9 +14,12 @@ echo "torque_install_dist,/usr/local" | tee -a $common_csv
 echo "torque_install_src,/tmp/torque" | tee -a $common_csv
 echo "torque_admin,root" | tee -a $common_csv
 echo "torque_master_name,inters-ec2-host1" | tee -a $common_csv
+echo "torque_version,2.5.5" | tee -a $common_csv
 echo "torque_complie_args_extra," | tee -a $common_csv
 echo "torque_spool_dir," | tee -a $common_csv
+echo "torque_user_not_root,ubuntu" | tee -a $common_csv
 echo "hostname_s," | tee -a $common_csv
 
 echo "hostname_s,kuruwa00" | tee -a $kuruwa_csv
+echo "torque_user_not_root,xsun" | tee -a $kuruwa_csv
 
