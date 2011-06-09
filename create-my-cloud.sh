@@ -34,6 +34,9 @@ fi
 
 oldkey=`ec2-describe-keypairs $keypair | grep ^KEY`
 if [ -z "$oldkey" ]; then
+	if [ ! -e $inters_home/share/$keypair ]; then
+		ec2-delete-keypair $keypair
+	fi
 	ec2-add-keypair $keypair | tee $inters_home/share/$keypair
 fi
 chmod 600 $inters_home/share/$keypair
@@ -74,6 +77,12 @@ user ubuntu
 StrictHostKeyChecking no
 identityFile $inters_home/share/$keypair
 EOF
+fi
+
+grep -qFx "identityFile $inters_home/share/$keypair" $ssh_config
+if [ ! $? -eq 0 ]; then
+	$SED -i "/identityFile/d" $ssh_config
+	$SED -i "4iidentityFile $inters_home/share/$keypair" $ssh_config
 fi
 
 $SED -i "/$hosttag_base$host_num/{N;d;}" $ssh_config
