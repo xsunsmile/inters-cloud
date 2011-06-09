@@ -1,5 +1,5 @@
 
-node /^__HOSTNAME_BASE__\d+/ {
+node /__HOSTNAME_BASE__$/ {
 	include 'inters'
 	include 'fpm'
 	include 'tinc'
