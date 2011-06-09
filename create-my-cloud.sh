@@ -1,14 +1,19 @@
 
-SED='gsed'
+SED=`which gsed`
+[ -z "$SED" ] && SED=`which sed`
 
 inters_home="$HOME/.mybin"
 inters_env="$inters_home/share/upload/inters.sh"
 inters_cron="$inters_home/share/upload/inters_crontab"
+inters_set_script="$inters_home/share/upload/set.sh"
 
 source $inters_home/share/ec2-env.sh
 source $inters_home/share/settings.sh
 source $inters_home/share/puppet_env.sh
 sh $inters_home/share/common_env_ssh.sh
+
+grep -qFx "domain_name='$hostdomain'" $inters_set_script || $SED -i "1idomain_name='$hostdomain'" $inters_set_script
+grep -qFx "tag_base='$hosttag_base'" $inters_set_script || $SED -i "1itag_base='$hosttag_base'" $inters_set_script
 
 host_num="$1"
 [ -z "$host_num" ] && host_num=`ec2-describe-instances -F tag:Name=$hosttag_base* | grep "^TAG.*Name" | wc -l | grep -o "[0-9]\{1,10\}$"`
@@ -30,9 +35,8 @@ fi
 oldkey=`ec2-describe-keypairs $keypair | grep ^KEY`
 if [ -z "$oldkey" ]; then
 	ec2-add-keypair $keypair | tee $inters_home/share/$keypair
-else
-	chmod 600 $inters_home/share/$keypair
 fi
+chmod 600 $inters_home/share/$keypair
 
 echo "mongodb_host,$pub_ip" | tee -a $common_csv
 

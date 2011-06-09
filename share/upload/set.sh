@@ -1,5 +1,3 @@
-domain_name="inters.com"
-tag_base="inters-ec2-host"
 
 instance_tag="$tag_base""$1"
 node_id=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
@@ -11,9 +9,15 @@ echo "" | tee -a /etc/hosts
 echo "$node_ip  $instance_tag.$domain_name  $instance_tag" | tee -a /etc/hosts
 
 [ ! -e $HOME/.ssh ] && mkdir $HOME/.ssh
-mv $HOME/upload/id_rsa $HOME/.ssh/
+cp $HOME/upload/id_rsa $HOME/.ssh/
 cat $HOME/upload/authorized_keys >> $HOME/.ssh/authorized_keys
 chmod 600 $HOME/.ssh/*
+
+sudo mkdir /root/.ssh
+sudo cp $HOME/upload/id_rsa /root/.ssh/
+sudo cat $HOME/upload/authorized_keys >> /root/.ssh/authorized_keys
+sudo chmod 600 /root/.ssh/*
+
 sudo sed -i -e "/\/arch/ s/arch/jp.arch/" /etc/apt/sources.list
 
 sudo apt-get update

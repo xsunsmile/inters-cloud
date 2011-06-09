@@ -1,5 +1,6 @@
-source ~/.mybin/share/ec2-env.sh
-source ~/.mybin/share/settings.sh
+inters_home="$HOME/inters-cloud"
+source $inters_home/share/ec2-env.sh
+source $inters_home/share/settings.sh
 
 CMDNAME=`basename $0`
 
