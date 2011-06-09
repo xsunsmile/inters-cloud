@@ -20,6 +20,7 @@ sudo apt-get update
 sudo apt-get install -y git-core
 
 if [ "$1" = "1" ]; then
+  [ ! -e $HOME/upload/puppet/modules ] && mkdir -p $HOME/upload/puppet/modules
   cd $HOME/upload/puppet/modules/
   git clone https://github.com/duritong/puppet-bridge-utils.git bridge-utils
   git clone https://github.com/xsunsmile/puppet-common.git common
