@@ -1,5 +1,5 @@
 
-node /^inters-ec2-host\d+/ {
+node /^__HOSTNAME_BASE__\d+/ {
 	include 'inters'
 	include 'fpm'
 	include 'tinc'

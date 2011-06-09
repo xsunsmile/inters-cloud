@@ -13,6 +13,9 @@ cp $HOME/upload/id_rsa $HOME/.ssh/
 cat $HOME/upload/authorized_keys >> $HOME/.ssh/authorized_keys
 chmod 600 $HOME/.ssh/*
 
+puppet_site_file="$HOME/upload/puppet/manifests/nodes/inters.pp"
+sed -i "s/__HOSTNAME_BASE__/$tag_base/" $puppet_site_file
+
 sudo mkdir /root/.ssh
 sudo cp $HOME/upload/id_rsa /root/.ssh/
 sudo cat $HOME/upload/authorized_keys >> /root/.ssh/authorized_keys
