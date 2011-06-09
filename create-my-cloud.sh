@@ -8,6 +8,7 @@ inters_cron="$inters_home/share/upload/inters_crontab"
 source $inters_home/share/ec2-env.sh
 source $inters_home/share/settings.sh
 source $inters_home/share/puppet_env.sh
+sh $inters_home/share/common_env_ssh.sh
 
 host_num="$1"
 [ -z "$host_num" ] && host_num=`ec2-describe-instances -F tag:Name=$hosttag_base* | grep "^TAG.*Name" | wc -l | grep -o "[0-9]\{1,10\}$"`
