@@ -28,3 +28,6 @@
 [submodule "puppet-modules/fpm"]
 	path = puppet-modules/fpm
 	url = git@github.com:xsunsmile/puppet-fpm.git
+[submodule "puppet-modules/nginx"]
+	path = puppet-modules/nginx
+	url = git@github.com:xsunsmile/puppet-nginx.git
