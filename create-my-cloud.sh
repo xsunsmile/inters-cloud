@@ -9,7 +9,8 @@ source $inters_home/share/ec2-env.sh
 source $inters_home/share/settings.sh
 source $inters_home/share/puppet_env.sh
 
-host_num=`ec2-describe-instances -F tag:Name=$hosttag_base* | grep "^TAG.*Name" | wc -l | grep -o "[0-9]\{1,10\}$"`
+host_num="$1"
+[ -z "$host_num" ] && host_num=`ec2-describe-instances -F tag:Name=$hosttag_base* | grep "^TAG.*Name" | wc -l | grep -o "[0-9]\{1,10\}$"`
 if [ -z "$host_num" ]; then
 	host_num=1
 else
@@ -17,6 +18,7 @@ else
 fi
 [ ! -z "$1" ] && host_num=$1
 vpn_hostaddr=$(($host_num+1))
+echo "inters_start_ec2: $hosttag_base$host_num: `date`"
 
 pub_ip=`ec2-describe-addresses | awk '{print $2}'`
 if [ -z "$pub_ip" ]; then
@@ -53,6 +55,8 @@ if [ ! -z "$pub_ip" -a -z "$elastic_ip" ]; then
 	ec2-create-tags $master_instid -t ElasticIP=$pub_ip
 	inst_pubip=$pub_ip
 fi
+
+echo "inters_fin_ec2: $hosttag_base$host_num: `date`"
 
 sshport_ok=`ec2-describe-group $group | awk '{print $5","$6","$7}' | grep "^tcp,22"`
 [ -z "$sshport_ok" ] && ec2-authorize $group -P tcp -p 22

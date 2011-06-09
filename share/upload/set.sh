@@ -29,8 +29,20 @@ if [ "$1" = "1" ]; then
   git clone https://github.com/xsunsmile/puppet-aptget.git apt
   git clone https://github.com/xsunsmile/puppet-inters-mgm.git inters
   git clone https://github.com/xsunsmile/puppet-fpm.git fpm
+  git clone https://github.com/xsunsmile/puppet-nginx.git nginx
   cat <<EOF >update.sh
-for funs in {fpm,common,inters,mongodb,tinc,torque}; do cd \$funs; git pull origin master; cd -; done
+origin_dir=`pwd`
+for funs in fpm common inters mongodb tinc torque apt
+do
+	cd \$funs;
+	git reset --hard HEAD;
+	git clean -f -d;
+	git pull origin master;
+	cd \$origin_dir;
+done
+
+# /etc/init.d/apache2 restart
+
 EOF
   chmod +x update.sh
 fi

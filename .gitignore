@@ -5,3 +5,5 @@ temp
 */*-e
 .screen*
 update-submodule.sh
+*.log
+run.sh
