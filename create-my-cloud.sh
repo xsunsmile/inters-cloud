@@ -13,8 +13,8 @@ source $inters_home/share/settings.sh
 source $inters_home/share/puppet_env.sh
 sh $inters_home/share/common_env_ssh.sh
 
-grep -qFx "domain_name='$hostdomain'" $inters_set_script || $SED -i "1idomain_name='$hostdomain'" $inters_set_script
-grep -qFx "tag_base='$hosttag_base'" $inters_set_script || $SED -i "1itag_base='$hosttag_base'" $inters_set_script
+grep -qFx "domain_name='$hostdomain'" $inters_set_script || $SED -i "3idomain_name='$hostdomain'" $inters_set_script
+grep -qFx "tag_base='$hosttag_base'" $inters_set_script || $SED -i "3itag_base='$hosttag_base'" $inters_set_script
 
 host_num="$1"
 [ -z "$host_num" ] && host_num=`ec2-describe-instances -F tag:Name=$hosttag_base* | grep "^TAG.*Name" | wc -l | grep -o "[0-9]\{1,10\}$"`
