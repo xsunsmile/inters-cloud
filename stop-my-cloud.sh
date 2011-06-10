@@ -27,7 +27,7 @@ do
   echo "stop instance: $instance_id"
   ec2-stop-instances $instance_id
   if [ "$FLG_T" = "TRUE" ]; then
-    ssh -F $ssh_config "$hosttag_base""1" sudo /var/lib/gems/1.8/bin/puppetca -c $hosttag_base$VALUE_N.$hostdomain || true
+    ssh -F $ssh_config -o ConnectTimeout=2 "$hosttag_base""1" sudo /var/lib/gems/1.8/bin/puppetca -c $hosttag_base$VALUE_N.$hostdomain || true
     echo "destroy instance: $instance_id"
     ec2-terminate-instances $instance_id
     echo "remove tags from instance: $instance_id"

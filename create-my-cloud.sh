@@ -6,6 +6,7 @@ inters_home="$HOME/.mybin"
 inters_env="$inters_home/share/upload/inters.sh"
 inters_cron="$inters_home/share/upload/inters_crontab"
 inters_set_script="$inters_home/share/upload/set.sh"
+puppet_master_ip_file="$inters_home/share/upload/puppet/01_update.sh"
 
 source $inters_home/share/ec2-env.sh
 source $inters_home/share/settings.sh
@@ -92,12 +93,14 @@ hostname $inst_pubip
 EOF
 
 elastic_ip=`ec2-describe-tags | awk '/ElasticIP/ {print $5}'`
-$SED -i "/^real_master/d" $inters_home/share/upload/puppet/01_update.sh
-$SED -i "3ireal_master='$elastic_ip';" $inters_home/share/upload/puppet/01_update.sh
+grep -qFx "^real_master='$elastic_ip'" $puppet_master_ip_file
+if [ ! $? -eq 0 ]; then
+       $SED -i "/^real_master/d" $puppet_master_ip_file
+       $SED -i "3ireal_master='$elastic_ip';" $puppet_master_ip_file
+fi
 
 scp -F ~/.ssh/config_inters -pr $inters_home/share/upload "$hosttag_base$host_num":.
 ssh -F ~/.ssh/config_inters "$hosttag_base$host_num" sudo ./upload/set.sh $host_num
-$SED -i "/^real_master/d" $inters_home/share/upload/puppet/01_update.sh
 
 mongoport_ok=`ec2-describe-group $group | awk '{print $5","$6","$7}' | grep "^tcp,27017"`
 [ -z $mongoport_ok ] && ec2-authorize $group -P tcp -p 27017
