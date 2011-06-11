@@ -1,4 +1,5 @@
 
+cluster_name=`echo $CLUSTER_NAME`
 common_csv="$inters_home/share/upload/puppet/manifests/extdata/common.csv"
 kuruwa_csv="$inters_home/share/upload/puppet/manifests/extdata/kuruwa-gw.alab.nii.ac.jp.csv"
 
@@ -13,7 +14,7 @@ echo "mongodb_install_src,/tmp/mongodb" | tee -a $common_csv
 echo "torque_install_dist,/usr/local" | tee -a $common_csv
 echo "torque_install_src,/tmp/torque" | tee -a $common_csv
 echo "torque_admin,root" | tee -a $common_csv
-echo "torque_master_name,inters-ec2-host1" | tee -a $common_csv
+echo "torque_master_name,${cluster_name}1" | tee -a $common_csv
 echo "torque_version,2.5.5" | tee -a $common_csv
 echo "torque_complie_args_extra," | tee -a $common_csv
 echo "torque_spool_dir," | tee -a $common_csv

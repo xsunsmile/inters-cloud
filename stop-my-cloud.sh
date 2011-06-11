@@ -1,4 +1,6 @@
-inters_home="$HOME/inters-cloud"
+#!/bin/bash
+
+inters_home="$HOME/.mybin"
 source $inters_home/share/ec2-env.sh
 source $inters_home/share/settings.sh
 

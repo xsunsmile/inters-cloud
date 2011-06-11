@@ -4,8 +4,8 @@ auto_domain=`hostname -d`
 base_dir=`dirname $0`
 gem_opts="--no-ri --no-rdoc"
 
-sudo apt-get install -y apache2 apache2-prefork-dev libapr1-dev libaprutil1-dev libcurl4-gnutls-dev locate
-sudo apt-get install -y build-essential zlib1g-dev
+sudo apt-get install -qq apache2 apache2-prefork-dev libapr1-dev libaprutil1-dev libcurl4-gnutls-dev locate
+sudo apt-get install -qq build-essential zlib1g-dev
 gembin_path=`gem1.8 env | grep "EXECUTABLE DIRECTORY" | awk '{print $4}'`
 [ ! -e /etc/profile.d/gem.sh ] && echo "PATH=\$PATH:$gembin_path" | tee -a /etc/profile.d/gem.sh
 

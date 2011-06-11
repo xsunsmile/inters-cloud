@@ -1,3 +1,4 @@
+#!/bin/bash
 
 SED=`which gsed`
 [ -z "$SED" ] && SED=`which sed`
@@ -18,6 +19,13 @@ grep -qFx "tag_base='$hosttag_base'" $inters_set_script || $SED -i "3itag_base='
 
 host_num="$1"
 [ -z "$host_num" ] && host_num=`ec2-describe-instances -F tag:Name=$hosttag_base* | grep "^TAG.*Name" | wc -l | grep -o "[0-9]\{1,10\}$"`
+tmp_instid=`ec2-describe-instances -F tag:Name=$hosttag_base$host_num | grep ^INS | awk '{print $2}'`
+while [ ${#tmp_instid} -ne 0 ];
+do
+   host_num=$(($host_num+1))
+   tmp_instid=`ec2-describe-instances -F tag:Name=$hosttag_base$host_num | grep ^INS | awk '{print $2}'`
+done
+
 if [ -z "$host_num" ]; then
 	host_num=1
 else
@@ -99,8 +107,8 @@ if [ ! $? -eq 0 ]; then
        $SED -i "3ireal_master='$elastic_ip';" $puppet_master_ip_file
 fi
 
-scp -F ~/.ssh/config_inters -pr $inters_home/share/upload "$hosttag_base$host_num":.
-ssh -F ~/.ssh/config_inters "$hosttag_base$host_num" sudo ./upload/set.sh $host_num
+scp -F $ssh_config -pr $inters_home/share/upload "$hosttag_base$host_num":.
+ssh -F $ssh_config "$hosttag_base$host_num" sudo ./upload/set.sh $host_num
 
 mongoport_ok=`ec2-describe-group $group | awk '{print $5","$6","$7}' | grep "^tcp,27017"`
 [ -z $mongoport_ok ] && ec2-authorize $group -P tcp -p 27017
@@ -114,5 +122,5 @@ tincport_ok=`ec2-describe-group $group | awk '{print $5","$6","$7}' | grep "^tcp
 
 puppet_role="client"
 [ $host_num -eq 1 ] && puppet_role="master"
-ssh -F ~/.ssh/config_inters "$hosttag_base$host_num" \
+ssh -F $ssh_config "$hosttag_base$host_num" \
 "nohup nice -19 sudo ./upload/puppet/00_install-puppet.sh $puppet_role < /dev/null 2>&1 > nohup.out &"

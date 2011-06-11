@@ -1,5 +1,7 @@
 #!/bin/bash
 
+tag_base='jade'
+domain_name='locondo.co.jp'
 
 instance_tag="$tag_base""$1"
 node_id=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
