@@ -2,6 +2,7 @@
 
 SED=`which gsed`
 [ -z "$SED" ] && SED=`which sed`
+sleep_interval=30
 
 inters_home="$HOME/.mybin"
 inters_env="$inters_home/share/upload/inters.sh"
@@ -14,15 +15,26 @@ source $inters_home/share/settings.sh
 source $inters_home/share/puppet_env.sh
 sh $inters_home/share/common_env_ssh.sh
 
-grep -qFx "domain_name='$hostdomain'" $inters_set_script || $SED -i "3idomain_name='$hostdomain'" $inters_set_script
-grep -qFx "tag_base='$hosttag_base'" $inters_set_script || $SED -i "3itag_base='$hosttag_base'" $inters_set_script
+grep -qFx "domain_name='$hostdomain'" $inters_set_script
+if [ $? -ne 0 ]; then
+	$SED -i "/^domain_name/d" $inters_set_script
+	$SED -i "3idomain_name='$hostdomain'" $inters_set_script
+fi
+grep -qFx "tag_base='$hosttag_base'" $inters_set_script
+if [ $? -ne 0 ]; then
+	$SED -i "/^tag_base/d" $inters_set_script
+	$SED -i "3itag_base='$hosttag_base'" $inters_set_script
+fi
 
 host_num="$1"
+sleep $(($RANDOM % $sleep_interval))
 [ -z "$host_num" ] && host_num=`ec2-describe-instances -F tag:Name=$hosttag_base* | grep "^TAG.*Name" | wc -l | grep -o "[0-9]\{1,10\}$"`
+sleep $(($RANDOM % $sleep_interval))
 tmp_instid=`ec2-describe-instances -F tag:Name=$hosttag_base$host_num | grep ^INS | awk '{print $2}'`
 while [ ${#tmp_instid} -ne 0 ];
 do
    host_num=$(($host_num+1))
+   sleep $(($RANDOM % $sleep_interval))
    tmp_instid=`ec2-describe-instances -F tag:Name=$hosttag_base$host_num | grep ^INS | awk '{print $2}'`
 done
 
@@ -35,6 +47,7 @@ fi
 vpn_hostaddr=$(($host_num+1))
 echo "inters_start_ec2: $hosttag_base$host_num: `date`"
 
+sleep $(($RANDOM % $sleep_interval))
 pub_ip=`ec2-describe-addresses | awk '{print $2}'`
 if [ -z "$pub_ip" ]; then
 	pub_ip=`ec2-allocate-address | awk '{print $2}'`
@@ -52,6 +65,7 @@ chmod 600 $inters_home/share/$keypair
 
 echo "mongodb_host,$pub_ip" | tee -a $common_csv
 
+sleep $(($RANDOM % $sleep_interval))
 instance_id=`ec2-run-instances $ami_id -t $inst_type -k $keypair | grep ^INS | awk '{print $2}'`
 echo "allocate new instance: $instance_id"
 ec2-create-tags $instance_id -t Name="$hosttag_base$host_num"
@@ -60,6 +74,7 @@ ec2-create-tags $instance_id -t VPN-Address="$vpn_netaddr$vpn_hostaddr"
 ec2-create-tags $instance_id -t LRM-Role=torque-slave
 inst_pubip=`ec2-describe-instances $instance_id | grep running | awk '{print $14}'`
 
+sleep $(($RANDOM % $sleep_interval))
 master_instid=`ec2-describe-instances -F tag:LRM-Role=torque-master | grep ^INS | awk '{print $2}'`
 [ -z "$master_instid" ] && master_instid=$instance_id
 ec2-create-tags $master_instid -t LRM-Role=torque-master
@@ -75,6 +90,7 @@ fi
 
 echo "inters_fin_ec2: $hosttag_base$host_num: `date`"
 
+sleep $(($RANDOM % $sleep_interval))
 sshport_ok=`ec2-describe-group $group | awk '{print $5","$6","$7}' | grep "^tcp,22"`
 [ -z "$sshport_ok" ] && ec2-authorize $group -P tcp -p 22
 
@@ -110,6 +126,7 @@ fi
 scp -F $ssh_config -pr $inters_home/share/upload "$hosttag_base$host_num":.
 ssh -F $ssh_config "$hosttag_base$host_num" sudo ./upload/set.sh $host_num
 
+sleep $(($RANDOM % $sleep_interval))
 mongoport_ok=`ec2-describe-group $group | awk '{print $5","$6","$7}' | grep "^tcp,27017"`
 [ -z $mongoport_ok ] && ec2-authorize $group -P tcp -p 27017
 
