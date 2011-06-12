@@ -4,8 +4,6 @@
 temp
 */*-e
 .screen*
-update-submodule.sh
-*.log
-run.sh
-run-slave.sh
-share/jade
+logs
+utils
+share/*

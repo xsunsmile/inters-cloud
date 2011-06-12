@@ -1,9 +1,9 @@
 #!/bin/bash
 
-tag_base='jade'
-domain_name='locondo.co.jp'
+source 00_header.sh
 
-instance_tag="$tag_base""$1"
+echo "inters_start_$0: $tag_base$host_num: `date`"
+instance_tag="$tag_base""$host_num"
 node_id=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
 echo "$instance_tag" | tee /etc/hostname
 hostname $instance_tag
@@ -31,7 +31,7 @@ sudo sed -i -e "/\/arch/ s/arch/jp.arch/" /etc/apt/sources.list
 sudo apt-get update
 sudo apt-get install -y git-core
 
-if [ "$1" = "1" ]; then
+if [ "$host_num" = "1" ]; then
   [ ! -e $HOME/upload/puppet/modules ] && mkdir -p $HOME/upload/puppet/modules
   cd $HOME/upload/puppet/modules/
   git clone https://github.com/duritong/puppet-bridge-utils.git bridge-utils
@@ -59,3 +59,4 @@ done
 EOF
   chmod +x update.sh
 fi
+echo "inters_fin_$0: $tag_base$host_num: `date`"
