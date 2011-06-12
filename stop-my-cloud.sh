@@ -1,8 +1,11 @@
 #!/bin/bash
 
 inters_home="$HOME/.mybin"
-source $inters_home/share/ec2-env.sh
-source $inters_home/share/settings.sh
+source $inters_home/config/00_cluster_settings.sh
+source $inters_home/config/01_ec2_env.sh
+source $inters_home/config/02_instance_settings.sh
+set +e
+set +u
 
 CMDNAME=`basename $0`
 
@@ -18,18 +21,21 @@ do
   esac
 done
 
+echo $CLUSTER_NAME
 if [ "$FLG_A" = "TRUE" ]; then
-  VPN_IDS=$(ec2-describe-instances -F tag:Name="$hosttag_base*" | grep ^INS | awk '{print $2}')
+  VPN_IDS=$(ec2-describe-instances -F tag:Name="$CLUSTER_NAME*" | grep ^INS | awk '{print $2}')
 else
-  VPN_IDS=$(ec2-describe-instances -F tag:Name="$hosttag_base$VALUE_N" | grep ^INS | awk '{print $2}')
+  VPN_IDS=$(ec2-describe-instances -F tag:Name="$CLUSTER_NAME$VALUE_N" | grep ^INS | awk '{print $2}')
 fi
+echo "ec2-describe-instances -F tag:Name=\"$CLUSTER_NAME*\""
+echo $VPN_IDS
 
 for instance_id in $VPN_IDS
 do
   echo "stop instance: $instance_id"
   ec2-stop-instances $instance_id
   if [ "$FLG_T" = "TRUE" ]; then
-    ssh -F $ssh_config -o ConnectTimeout=2 "$hosttag_base""1" sudo /var/lib/gems/1.8/bin/puppetca -c $hosttag_base$VALUE_N.$hostdomain || true
+    ssh -F $ssh_config -o ConnectTimeout=2 "$CLUSTER_NAME""1" sudo /var/lib/gems/1.8/bin/puppetca -c $CLUSTER_NAME$VALUE_N.$hostdomain || true
     echo "destroy instance: $instance_id"
     ec2-terminate-instances $instance_id
     echo "remove tags from instance: $instance_id"

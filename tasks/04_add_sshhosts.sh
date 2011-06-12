@@ -1,5 +1,10 @@
 #!/bin/bash
+set -e
+set -u
 
+source $temp_env/include
+
+replace=false
 SED=`which gsed`
 [ -z "$SED" ] && SED=`which sed`
 
@@ -13,8 +18,8 @@ identityFile $inters_home/share/$keypair
 EOF
 fi
 
-grep -qFx "identityFile $inters_home/share/$keypair" $ssh_config
-if [ $? -ne 0 ]; then
+grep -qFx "identityFile $inters_home/share/$keypair" $ssh_config || replace=true
+if $replace; then
 	$SED -i "/identityFile/d" $ssh_config
 	$SED -i "4iidentityFile $inters_home/share/$keypair" $ssh_config
 fi
@@ -24,4 +29,3 @@ cat <<EOF >> $ssh_config
 host $CLUSTER_NAME$hostnum
 hostname $inst_pubip
 EOF
-

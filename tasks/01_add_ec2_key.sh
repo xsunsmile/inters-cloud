@@ -1,4 +1,8 @@
 #!/bin/bash
+set -e
+set -u
+
+source $temp_env/include
 
 oldkey=`ec2-describe-keypairs $keypair | grep ^KEY`
 if [ -z "$oldkey" ]; then
