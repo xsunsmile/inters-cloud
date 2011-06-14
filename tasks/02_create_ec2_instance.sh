@@ -3,10 +3,13 @@ set -e
 set -u
 
 source $temp_env/include
+cd $inters_home
 
 max_wait=60
-hostnum=`sqlite3 $DBNAME "select count(*) from instances"`
-[ $hostnum -eq 0 ] && hostnum=1
+current_dir=`dirname $0`
+hostnum=`ruby $current_dir/02_gethostnum.rb $DBNAME`
+[ "$hostnum" = "0" ] && hostnum=1
+
 vpn_hostaddr=$(($hostnum+1))
 vpn_addr=$vpn_netaddr$vpn_hostaddr
 hostname="$CLUSTER_NAME$hostnum.$CLUSTER_DOMAIN"
@@ -42,6 +45,7 @@ do
 		ec2-terminate-instances $instance_id
 	else
 		sqlite3 $DBNAME "insert into instances (instance_id,prop,value) values ('$instance_id', 'hostname', '$hostname');"
+		sqlite3 $DBNAME "insert into instances (instance_id,prop,value) values ('$instance_id', 'hostnum', '$hostnum');"
 		sqlite3 $DBNAME "insert into instances (instance_id,prop,value) values ('$instance_id', 'vpn_address', '$vpn_addr');"
 		sqlite3 $DBNAME "insert into instances (instance_id,prop,value) values ('$instance_id', 'inst_pubip', '$inst_pubip');"
 		sqlite3 $DBNAME "select * from instances where instance_id='$instance_id'"
@@ -56,3 +60,4 @@ hostname="$hostname"
 instance_id="$instance_id"
 inst_pubip="$inst_pubip"
 EOF
+

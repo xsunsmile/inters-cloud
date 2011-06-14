@@ -9,8 +9,9 @@ temp_env="/tmp/$((RANDOM%9999))$((RANDOM%9999))$((RANDOM%9999))"
 [ ! -e $temp_env ] && mkdir -p $temp_env
 
 for task in $(ls $inters_home/tasks/*sh); do
-	echo "execute task: $task"
+	start=$SECONDS
 	temp_env=$temp_env sh $task
+	echo "inters_task_fin: $task ($((SECONDS-start)))"
 done
 
 # [ -e $temp_env ] && rm -rf $temp_env

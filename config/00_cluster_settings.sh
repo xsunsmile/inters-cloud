@@ -20,5 +20,6 @@ if [ ! -e $DBNAME ]; then
 	rm -f /tmp/tmpstructure;
 	sqlite3 $DBNAME "insert into cluster (prop,value) values ('cluster_name','$CLUSTER_NAME');"
 	sqlite3 $DBNAME "insert into cluster (prop,value) values ('cluster_domain','$CLUSTER_DOMAIN');"
+	sqlite3 $DBNAME "insert into cluster (prop,value) values ('instances_num','0');"
 fi
 

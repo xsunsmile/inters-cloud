@@ -21,7 +21,6 @@ do
   esac
 done
 
-echo $CLUSTER_NAME
 if [ "$FLG_A" = "TRUE" ]; then
   VPN_IDS=$(ec2-describe-instances -F tag:Name="$CLUSTER_NAME*" | grep ^INS | awk '{print $2}')
 else

@@ -1,6 +1,21 @@
 #!/bin/bash
+set -e
+set -u
 
-puppet_role="client"
-[ $host_num -eq 1 ] && puppet_role="master"
-ssh -F $ssh_config "$hosttag_base$host_num" \
-"nohup nice -19 sudo ./upload/puppet/00_install-puppet.sh $puppet_role < /dev/null 2>&1 > nohup.out &"
+sudo apt-get -qq update
+sudo apt-get install -qq sqlite3 openjdk-6-jre-headless
+
+current_dir=`dirname $0`
+temp_env="/tmp/$((RANDOM%9999))$((RANDOM%9999))$((RANDOM%9999))"
+[ ! -e $temp_env ] && mkdir -p $temp_env
+cp $current_dir/ec2_env.sh $temp_env/01_ec2_env.sh
+
+echo "temp_env: $temp_env"
+
+for task in $(ls $current_dir/tasks/*sh);
+do
+	start=$SECONDS
+	temp_env=$temp_env bash $task
+	echo "inters_fin_$task ($((SECONDS-start)))"
+done
+

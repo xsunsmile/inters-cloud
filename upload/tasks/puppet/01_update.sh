@@ -1,6 +1,9 @@
 #!/bin/bash
+set -u
+
+remove_ssl=0
+set_cron=0
 host_file="/etc/hosts";
-real_master='175.41.247.95';
 master_ip=$(grep puppet $host_file | awk '{print $1}');
 if [ "$master_ip" != "$real_master" ]; then
    sudo sed -i '/puppet/d' $host_file

@@ -24,8 +24,11 @@ if $replace; then
 	$SED -i "4iidentityFile $inters_home/share/$keypair" $ssh_config
 fi
 
+access_ip=$inst_pubip
+[ "$hostnum" = "1" ] && access_ip=$elastic_ip
+
 $SED -i "/$CLUSTER_NAME$hostnum/{N;d;}" $ssh_config
 cat <<EOF >> $ssh_config
 host $CLUSTER_NAME$hostnum
-hostname $inst_pubip
+hostname $access_ip
 EOF

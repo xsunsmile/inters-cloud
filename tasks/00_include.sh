@@ -7,7 +7,7 @@ temp_env="$temp_env"
 echo "temp_env: \$temp_env"
 for setting in \$(ls \$temp_env/*sh)
 do
-	echo "read setting: \$setting"
+	# echo "read setting: \$setting"
 	source \$setting
 done
 ENV
@@ -20,5 +20,8 @@ inters_config_dir="\$inters_home/config"
 for setting in \$(ls \$inters_config_dir/*sh); do
 	source \$setting
 done
+
+DBNAME="\$inters_home/upload/db/\${CLUSTER_NAME}_\${CLUSTER_DOMAIN}_db"
+
 ENV
 

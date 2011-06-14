@@ -1,4 +1,7 @@
+#!/bin/bash
 # puppetmasterd --debug --verbose --no-daemonize
+set -u
+
 auto_domain=`hostname -d`
 [ -z "$auto_domain" ] && auto_domain='inters.com'
 base_dir=`dirname $0`
