@@ -14,4 +14,7 @@ for task in $(ls $inters_home/tasks/*sh); do
 	echo "inters_task_fin: $task ($((SECONDS-start)))"
 done
 
-# [ -e $temp_env ] && rm -rf $temp_env
+[ -e $temp_env ] && rm -rf $temp_env
+
+set +u
+set +e

@@ -4,11 +4,12 @@ set -u
 
 source $temp_env/include
 cd $inters_home
+echo "use DB: $DBNAME"
 
 max_wait=60
 current_dir=`dirname $0`
 hostnum=`ruby $current_dir/02_gethostnum.rb $DBNAME`
-[ "$hostnum" = "0" ] && hostnum=1
+echo "hostnum is $hostnum"
 
 vpn_hostaddr=$(($hostnum+1))
 vpn_addr=$vpn_netaddr$vpn_hostaddr
@@ -17,6 +18,7 @@ hostname="$CLUSTER_NAME$hostnum.$CLUSTER_DOMAIN"
 set +e
 while :
 do
+	echo "create image from $ami_id"
 	instance_id=`ec2-run-instances $ami_id -t $inst_type -k $keypair | grep ^INS | awk '{print $2}'`
 	echo "allocate new instance: $instance_id"
 	

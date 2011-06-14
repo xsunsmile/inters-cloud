@@ -19,6 +19,7 @@ chmod 600 $HOME/upload/authorized_keys
 cp $HOME/upload/id_rsa $HOME/.ssh/
 cat $HOME/upload/authorized_keys >> $HOME/.ssh/authorized_keys
 chmod 600 $HOME/.ssh/*
+sudo chown -R `whoami`.`whoami` $HOME/.ssh
 
 puppet_site_file="$HOME/upload/tasks/puppet/manifests/nodes/inters.pp"
 replace=${CLUSTER_DOMAIN//\./\\.}

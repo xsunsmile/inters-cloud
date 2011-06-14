@@ -7,5 +7,5 @@ source $temp_env/include
 current_dir=`dirname $0`
 puppet_role="client"
 [ $hostnum -eq 1 ] && puppet_role="master"
-nohup nice -19 sudo $current_dir/puppet/00_install-puppet.sh $puppet_role </dev/null 2>&1>nohup.out &
+sudo $current_dir/puppet/00_install-puppet.sh $puppet_role
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 inters_home="$HOME/.mybin"
-source $inters_home/config/00_cluster_settings.sh
+source $inters_home/config/00_cluster_settings.sh "nocreate"
 source $inters_home/config/01_ec2_env.sh
 source $inters_home/config/02_instance_settings.sh
 set +e
@@ -14,6 +14,7 @@ do
   case $OPT in
     "t" ) FLG_T="TRUE" ;;
     "a" ) FLG_A="TRUE" ;;
+    "y" ) FLG_Y="TRUE" ;;
     "i" ) FLG_I="TRUE" ; VALUE_I="$OPTARG" ;;
     "n" ) FLG_N="TRUE" ; VALUE_N="$OPTARG" ;;
     * ) echo "Usage: $CMDNAME [-t(erminate)] [-a(ll)] [-i INSTANCE_ID] [-n hostnum]" 1>&2
@@ -24,10 +25,17 @@ done
 if [ "$FLG_A" = "TRUE" ]; then
   VPN_IDS=$(ec2-describe-instances -F tag:Name="$CLUSTER_NAME*" | grep ^INS | awk '{print $2}')
 else
-  VPN_IDS=$(ec2-describe-instances -F tag:Name="$CLUSTER_NAME$VALUE_N" | grep ^INS | awk '{print $2}')
+  tags=""
+  if [ `expr "$VALUE_N" : '[0-9]-[0-9]'` ]; then
+    arr=(`echo $VALUE_N | tr -s '-' ' '`)
+    for num in $(seq ${arr[0]} ${arr[1]}); do
+      tags="$tags -F tag:Name=$CLUSTER_NAME$num"
+    done
+  fi
+  [ ${#tags} -eq 0 ] && tags="-F tag:Name=$CLUSTER_NAME$VALUE_N"
+  echo "tags: $tags"
+  VPN_IDS=$(ec2-describe-instances $tags | grep ^INS | awk '{print $2}')
 fi
-echo "ec2-describe-instances -F tag:Name=\"$CLUSTER_NAME*\""
-echo $VPN_IDS
 
 for instance_id in $VPN_IDS
 do
@@ -50,5 +58,10 @@ if [ "$FLG_T" = "TRUE" ]; then
       ec2-release-address $elastic_ip
       ec2-delete-tags $instance_id -t ElasticIP
     fi
+    if [ -e "$DBNAME" ]; then
+      [ "$FLG_Y" != "TRUE" -a ${#DBNAME} -gt 0 ] && echo -n "Delete $DBNAME? (y,n) > " && read DELETE
+      [ "$FLG_Y" = "TRUE" -o "$DELETE" = 'y' ] && rm -rf $DBNAME
+    fi
   fi
 fi
+

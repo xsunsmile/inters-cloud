@@ -1,17 +1,17 @@
 #!/bin/bash
 set -e
-set -u
 
 export CLUSTER_NAME="jade"
 export CLUSTER_DOMAIN="locondo.jp"
 
 INSTANCE_TABLE="create table instances (id INTEGER PRIMARY KEY,instance_id TEXT,prop TEXT,value TEXT);"
 CLUSTER_TABLE="create table cluster (id INTEGER PRIMARY KEY,prop TEXT,value TEXT);"
-current_dir=`dirname $BASH_ARGV`
+
+current_dir=$(dirname "$BASH_SOURCE")
 DBPATH=$current_dir/../upload/db
 DBNAME=$DBPATH/${CLUSTER_NAME}_${CLUSTER_DOMAIN}_db
 
-if [ ! -e $DBNAME ]; then
+if [ ! -e $DBNAME -a ${#1} -eq 0 ]; then
 	[ ! -e $DBPATH ] && mkdir -p $DBPATH
 	cat /dev/null > $DBNAME
 	echo $CLUSTER_TABLE | tee -a /tmp/tmpstructure
@@ -20,6 +20,6 @@ if [ ! -e $DBNAME ]; then
 	rm -f /tmp/tmpstructure;
 	sqlite3 $DBNAME "insert into cluster (prop,value) values ('cluster_name','$CLUSTER_NAME');"
 	sqlite3 $DBNAME "insert into cluster (prop,value) values ('cluster_domain','$CLUSTER_DOMAIN');"
-	sqlite3 $DBNAME "insert into cluster (prop,value) values ('instances_num','0');"
+	sqlite3 $DBNAME "insert into cluster (prop,value) values ('instances_num','1');"
 fi
 
