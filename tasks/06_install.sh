@@ -7,6 +7,7 @@ source $temp_env/include
 sudo_user="ubuntu"
 access_ip=$inst_pubip
 [ "$hostnum" = 1 ] && access_ip=$elastic_ip
+ssh-keygen -R $access_ip
 
 chmod +x $inters_home/upload/install.sh
 
