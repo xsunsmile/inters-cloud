@@ -10,7 +10,7 @@ access_ip=$inst_pubip
 
 chmod +x $inters_home/upload/install.sh
 
-SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=3"
+SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=30"
 COMMAND="mkdir .ec2"
 ssh $SSH_OPTS $sudo_user@$access_ip -i $inters_home/share/$CLUSTER_NAME $COMMAND || true
 
