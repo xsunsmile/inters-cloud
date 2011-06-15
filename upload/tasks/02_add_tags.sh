@@ -10,7 +10,7 @@ ec2-create-tags $instance_id \
 	-t VPN-Address="$vpn_addr" \
 	-t LRM-Role=torque-slave
 
-if [ $hostnum -eq 1 ]; then
+if [ "$hostnum" = "1" ]; then
 	master_instid=$instance_id
 	echo "found master: $master_instid, $elastic_ip "
 	ec2-create-tags $instance_id \

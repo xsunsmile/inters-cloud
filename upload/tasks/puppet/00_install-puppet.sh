@@ -21,7 +21,10 @@ sudo gem1.8 install puppet $gem_opts || sudo gem1.8 install $base_path/gems/pupp
 sudo gem1.8 install mongo $gem_opts
 sudo gem1.8 install SystemTimer $gem_opts
 sudo gem1.8 install bson_ext $gem_opts
+sudo gem1.8 install i18n $gem_opts
+sudo gem1.8 install whenever $gem_opts
 
 [ "$1" = "master" ] && sh $base_path/02_start_puppetmaster.sh
 sh $base_path/01_update.sh
 echo "inters_fin_puppet: `hostname`: `date`"
+

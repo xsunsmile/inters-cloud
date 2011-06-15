@@ -1,5 +1,6 @@
 #!/bin/bash
 set -u
+set +e
 
 remove_ssl=0
 set_cron=0
@@ -17,10 +18,8 @@ no_puppetuser=`id puppet`
 [ -z "$no_puppetuser" ] && sudo useradd -d /var/lib/puppet -s /bin/false puppet
 
 sudo $gembin_path/puppetd --test --verbose 2>&1 > /tmp/puppet.log
-sudo grep "Retrieved certificate does not match private key" /tmp/puppet.log 2>&1 > /dev/null
-[ $? -eq 0 ] && remove_ssl='1'
-sudo grep "^err:" /tmp/puppet.log 2>&1 > /dev/null
-[ $? -eq 0 ] && set_cron='1'
+sudo grep "Retrieved certificate does not match private key" /tmp/puppet.log 2>&1 > /dev/null && remove_ssl='1'
+sudo grep "^err:" /tmp/puppet.log 2>&1 > /dev/null && set_cron='1'
 if [ "$set_cron" = "1" ]; then
 	[ "$remove_ssl" = "1" ] && sudo rm -rf /etc/puppet/ssl
 	cat <<EOF > /tmp/puppet.cron
