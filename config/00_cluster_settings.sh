@@ -23,3 +23,4 @@ if [ ! -e $DBNAME -a ${#1} -eq 0 ]; then
 	sqlite3 $DBNAME "insert into cluster (prop,value) values ('instances_num','1');"
 fi
 
+set +e

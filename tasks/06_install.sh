@@ -13,7 +13,19 @@ chmod +x $inters_home/upload/install.sh
 
 SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=30"
 COMMAND="mkdir .ec2"
-ssh $SSH_OPTS $sudo_user@$access_ip -i $inters_home/share/$CLUSTER_NAME $COMMAND || true
+
+retries=10
+should_retry="false"
+while [ $retries -gt 0 ]; do
+	ssh $SSH_OPTS $sudo_user@$access_ip -i $inters_home/share/$CLUSTER_NAME $COMMAND || should_retry="true"
+	if [ $should_retry = "true" ]; then
+		sleep 1
+		retries=$((retries-1))
+		should_retry="false"
+	else
+		break
+	fi
+done
 
 dest_dir="."
 upload_dir="$inters_home/upload";

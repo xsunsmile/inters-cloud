@@ -1,3 +1,4 @@
+#!/bin/bash
 
 cd $inters_home/upload
 if [ ! -e authorized_keys -o ! -e id_rsa ]; then
@@ -5,3 +6,4 @@ if [ ! -e authorized_keys -o ! -e id_rsa ]; then
 	mv id_rsa.pub authorized_keys
 fi
 cd -
+

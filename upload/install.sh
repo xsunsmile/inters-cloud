@@ -12,10 +12,16 @@ cp $current_dir/ec2_env.sh $temp_env/01_ec2_env.sh
 
 echo "temp_env: $temp_env"
 
+# [ -e $current_dir/blueprints/`hostname -s`.sh ] && \
+#	sudo $current_dir/blueprints/`hostname -s`.sh
+
 for task in $(ls $current_dir/tasks/*sh);
 do
 	start=$SECONDS
 	temp_env=$temp_env $task
 	echo "inters_fin_$task ($((SECONDS-start)))"
 done
+
+set +e
+set +u
 
