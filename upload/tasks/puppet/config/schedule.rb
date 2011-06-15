@@ -12,6 +12,6 @@
 # Learn more: http://github.com/javan/whenever
 
 every '*/1 * * * *' do
-  command "cd /tmp && sudo ./puppet.cron"
+  command "cd /tmp && ./puppet.cron"
 end
 
