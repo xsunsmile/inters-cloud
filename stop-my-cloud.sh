@@ -9,7 +9,7 @@ set +u
 
 CMDNAME=`basename $0`
 
-while getopts ati:n: OPT
+while getopts atyi:n: OPT
 do
   case $OPT in
     "t" ) FLG_T="TRUE" ;;
@@ -17,7 +17,7 @@ do
     "y" ) FLG_Y="TRUE" ;;
     "i" ) FLG_I="TRUE" ; VALUE_I="$OPTARG" ;;
     "n" ) FLG_N="TRUE" ; VALUE_N="$OPTARG" ;;
-    * ) echo "Usage: $CMDNAME [-t(erminate)] [-a(ll)] [-i INSTANCE_ID] [-n hostnum]" 1>&2
+    * ) echo "Usage: $CMDNAME [-y(es)] [-t(erminate)] [-a(ll)] [-i INSTANCE_ID] [-n hostnum]" 1>&2
     exit 1 ;;
   esac
 done
