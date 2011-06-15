@@ -26,7 +26,7 @@ if [ "$FLG_A" = "TRUE" ]; then
   VPN_IDS=$(ec2-describe-instances -F tag:Name="$CLUSTER_NAME*" | grep ^INS | awk '{print $2}')
 else
   tags=""
-  if [ `expr "$VALUE_N" : '[0-9]-[0-9]'` -ne 0 ]; then
+  if [ `expr "$VALUE_N" : '[0-9]\{1,\}-[0-9]\{1,\}'` -ne 0 ]; then
     arr=(`echo $VALUE_N | tr -s '-' ' '`)
     for num in $(seq ${arr[0]} ${arr[1]}); do
       tags="$tags -F tag:Name=$CLUSTER_NAME$num"
