@@ -25,6 +25,7 @@ grep "err" /tmp/puppet.log 2>&1 > /dev/null && set_cron='1'
 echo "flags: $set_cron, $remove_ssl"
 if [ "$set_cron" = "1" ]; then
 	[ "$remove_ssl" = "1" ] && sudo rm -rf /etc/puppet/ssl
+	[ -e /tmp/puppet.cron ] && sudo rm /tmp/puppet.cron
 	cat <<EOF > /tmp/puppet.cron
 running=\`ps aux | grep [p]uppetd\`
 [ -z "\$running" ] && sudo $gembin_path/puppetd --test --verbose 2>&1 > /tmp/puppet.log
@@ -38,7 +39,7 @@ fi
 EOF
 	sudo chmod a+x /tmp/puppet.cron
 	[ -e /tmp/puppet.log ] && sudo rm /tmp/puppet.log
-	$gembin_path/whenever -i 'run puppet periodically'
+	$gembin_path/whenever -i 'run puppet periodically' -f `dirname $0`/config/schedule.rb
 	cp -pr `dirname $0`/config /tmp/
 fi
 
