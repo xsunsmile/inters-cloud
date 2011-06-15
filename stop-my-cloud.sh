@@ -9,7 +9,7 @@ set +u
 
 CMDNAME=`basename $0`
 
-while getopts ati:n: OPT
+while getopts atyi:n: OPT
 do
   case $OPT in
     "t" ) FLG_T="TRUE" ;;

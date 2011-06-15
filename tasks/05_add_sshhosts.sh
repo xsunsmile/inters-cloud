@@ -5,7 +5,7 @@ set -u
 source $temp_env/include
 
 replace=false
-SED=`which gsed`
+SED=`which gsed || echo ''`
 [ -z "$SED" ] && SED=`which sed`
 
 if [ ! -e $ssh_config ]; then

@@ -35,7 +35,7 @@ sudo apt-get update
 sudo apt-get install -y git-core
 
 if [ "$hostnum" = "1" ]; then
-  [ ! -e $HOME/upload/tasks/puppet/modules ] && mkdir -p $HOME/upload/puppet/modules
+  [ ! -e $HOME/upload/tasks/puppet/modules ] && mkdir -p $HOME/upload/tasks/puppet/modules
   cd $HOME/upload/tasks/puppet/modules/
   [ ! -e bridge-utils ] && git clone https://github.com/duritong/puppet-bridge-utils.git bridge-utils
   [ ! -e common ] && git clone https://github.com/xsunsmile/puppet-common.git common
