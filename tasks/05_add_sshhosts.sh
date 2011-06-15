@@ -8,7 +8,6 @@ replace=false
 SED=`which gsed || echo ''`
 [ -z "$SED" ] && SED=`which sed`
 
-echo "fin 5"
 if [ ! -e $ssh_config ]; then
 	cat <<EOF > $ssh_config
 ServerAliveInterval 30
@@ -19,14 +18,12 @@ identityFile $inters_home/share/$keypair
 EOF
 fi
 
-echo "fin 5"
 grep -qFx "identityFile $inters_home/share/$keypair" $ssh_config || replace=true
 if $replace; then
 	$SED -i "/identityFile/d" $ssh_config
 	$SED -i "4iidentityFile $inters_home/share/$keypair" $ssh_config
 fi
 
-echo "fin 5"
 access_ip=$inst_pubip
 [ "$hostnum" = "1" ] && access_ip=$elastic_ip
 
