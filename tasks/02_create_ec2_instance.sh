@@ -8,7 +8,7 @@ echo "use DB: $DBNAME"
 
 max_wait=60
 current_dir=`dirname $0`
-hostnum=`ruby $current_dir/02_gethostnum.rb $DBNAME`
+hostnum=`ruby $current_dir/02_sqlite3.rb $DBNAME get_hostnum`
 echo "hostnum is $hostnum"
 
 vpn_hostaddr=$(($hostnum+1))
@@ -46,11 +46,6 @@ do
 		echo "ec2-terminate-instance $instance_id"
 		ec2-terminate-instances $instance_id
 	else
-		sqlite3 $DBNAME "insert into instances (instance_id,prop,value) values ('$instance_id', 'hostname', '$hostname');"
-		sqlite3 $DBNAME "insert into instances (instance_id,prop,value) values ('$instance_id', 'hostnum', '$hostnum');"
-		sqlite3 $DBNAME "insert into instances (instance_id,prop,value) values ('$instance_id', 'vpn_address', '$vpn_addr');"
-		sqlite3 $DBNAME "insert into instances (instance_id,prop,value) values ('$instance_id', 'inst_pubip', '$inst_pubip');"
-		sqlite3 $DBNAME "select * from instances where instance_id='$instance_id'"
 		break
 	fi
 done
@@ -62,4 +57,7 @@ hostname="$hostname"
 instance_id="$instance_id"
 inst_pubip="$inst_pubip"
 EOF
+
+`ruby $current_dir/02_sqlite3.rb $DBNAME add_hostinfo $temp_env`
+set -e
 

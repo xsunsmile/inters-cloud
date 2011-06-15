@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-export CLUSTER_NAME="jade"
-export CLUSTER_DOMAIN="locondo.jp"
+export CLUSTER_NAME="kuruwa"
+export CLUSTER_DOMAIN="alab.nii.ac.jp"
 
 INSTANCE_TABLE="create table instances (id INTEGER PRIMARY KEY,instance_id TEXT,prop TEXT,value TEXT);"
 CLUSTER_TABLE="create table cluster (id INTEGER PRIMARY KEY,prop TEXT,value TEXT);"
