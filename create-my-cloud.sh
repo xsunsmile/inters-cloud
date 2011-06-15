@@ -10,7 +10,7 @@ temp_env="/tmp/$((RANDOM%9999))$((RANDOM%9999))$((RANDOM%9999))"
 
 for task in $(ls $inters_home/tasks/*sh); do
 	start=$SECONDS
-	temp_env=$temp_env sh $task
+	temp_env=$temp_env bash $task
 	echo "inters_task_fin: $task ($((SECONDS-start)))"
 done
 
