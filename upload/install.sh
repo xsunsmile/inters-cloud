@@ -15,7 +15,7 @@ echo "temp_env: $temp_env"
 for task in $(ls $current_dir/tasks/*sh);
 do
 	start=$SECONDS
-	temp_env=$temp_env bash $task
+	temp_env=$temp_env ./$task
 	echo "inters_fin_$task ($((SECONDS-start)))"
 done
 

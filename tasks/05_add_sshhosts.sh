@@ -36,4 +36,3 @@ host $CLUSTER_NAME$hostnum
 hostname $access_ip
 EOF
 
-echo "fin 5"
