@@ -56,6 +56,7 @@ hostnum="$hostnum"
 hostname="$hostname"
 instance_id="$instance_id"
 inst_pubip="$inst_pubip"
+vpn_addr="$vpn_addr"
 EOF
 
 `ruby $current_dir/02_sqlite3.rb $DBNAME add_hostinfo $temp_env`
