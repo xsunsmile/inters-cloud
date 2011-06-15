@@ -13,7 +13,7 @@ cp $current_dir/ec2_env.sh $temp_env/01_ec2_env.sh
 echo "temp_env: $temp_env"
 
 # [ -e $current_dir/blueprints/`hostname -s`.sh ] && \
-#	sudo $current_dir/blueprints/`hostname -s`.sh
+#	sudo $current_dir/blueprints/`hostname -s`
 
 for task in $(ls $current_dir/tasks/*sh);
 do
