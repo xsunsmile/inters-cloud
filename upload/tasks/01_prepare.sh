@@ -63,3 +63,10 @@ EOF
   chmod +x update.sh
 fi
 
+cat <<SSHCONFIG > config
+StrictHostKeyChecking no
+SSHCONFIG
+cp config $HOME/.ssh/
+sudo cp config /root/.ssh/
+sudo mv config /etc/skel/
+

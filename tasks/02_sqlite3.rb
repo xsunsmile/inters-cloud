@@ -44,7 +44,6 @@ operation = ARGV.shift
 
 db = SQLite3::Database.new(dbpath)
 db.busy_handler do |retries|
-	print "retries is ",retries,"\n"
 	sleep 1+(rand * 100).ceil/100.0
 	(retries<=10)
 end
