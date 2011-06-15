@@ -8,12 +8,6 @@ echo "use DB: $DBNAME"
 
 max_wait=60
 current_dir=`dirname $0`
-hostnum=`ruby $current_dir/02_sqlite3.rb $DBNAME get_hostnum`
-echo "hostnum is $hostnum"
-
-vpn_hostaddr=$(($hostnum+1))
-vpn_addr=$vpn_netaddr$vpn_hostaddr
-hostname="$CLUSTER_NAME$hostnum.$CLUSTER_DOMAIN"
 
 set +e
 while :
@@ -51,6 +45,13 @@ do
 done
 set -e
 
+hostnum=`ruby $current_dir/02_sqlite3.rb $DBNAME get_hostnum`
+echo "hostnum is $hostnum"
+
+vpn_hostaddr=$(($hostnum+1))
+vpn_addr=$vpn_netaddr$vpn_hostaddr
+hostname="$CLUSTER_NAME$hostnum.$CLUSTER_DOMAIN"
+
 cat <<EOF > $temp_env/host_settings.sh
 hostnum="$hostnum"
 hostname="$hostname"
@@ -59,6 +60,5 @@ inst_pubip="$inst_pubip"
 vpn_addr="$vpn_addr"
 EOF
 
-`ruby $current_dir/02_sqlite3.rb $DBNAME add_hostinfo $temp_env`
-set -e
+ruby $current_dir/02_sqlite3.rb $DBNAME add_hostinfo $temp_env
 

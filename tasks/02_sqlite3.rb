@@ -6,7 +6,7 @@ require 'sqlite3'
 def get_hostnum(db)
 hostnum=0
 begin
-	db.transaction do
+	db.transaction(mode=:exclusive) do
 		sql="select value from cluster where prop='instances_num';"
 		hostnum=db.get_first_value(sql)
 		sql="update cluster set value=(select value from cluster where prop='instances_num')+1 where prop='instances_num';"
@@ -43,11 +43,10 @@ dbpath = ARGV.shift
 operation = ARGV.shift
 
 db = SQLite3::Database.new(dbpath)
-db.busy_handler do |data, retries|
-	print "in busy_handler data is ",data,"\n"
+db.busy_handler do |retries|
 	print "retries is ",retries,"\n"
-	sleep (rand * 100).ceil/100.0
-	(retries<=3)
+	sleep 1+(rand * 100).ceil/100.0
+	(retries<=10)
 end
 
 
