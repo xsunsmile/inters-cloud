@@ -7,6 +7,6 @@ current_dir=`dirname $BASH_SOURCE`
 for task in $(ls $current_dir/tasks/*sh)
 do
 	echo "execute task: $task"
-	download_dir=$current_dir bash $task
+	download_dir=$current_dir ./$task
 done
 
