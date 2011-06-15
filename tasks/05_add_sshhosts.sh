@@ -5,9 +5,7 @@ set -u
 source $temp_env/include
 
 replace=false
-echo "fin 5"
 SED=`which gsed || echo ''`
-echo "fin 5"
 [ -z "$SED" ] && SED=`which sed`
 
 echo "fin 5"

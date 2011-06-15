@@ -10,8 +10,9 @@ access_ip=$inst_pubip
 
 chmod +x $inters_home/upload/install.sh
 
+SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=3"
 COMMAND="mkdir .ec2"
-ssh -o StrictHostKeyChecking=no -o ConnectTimeout=3 $sudo_user@$access_ip -i $inters_home/share/$CLUSTER_NAME $COMMAND || true
+ssh $SSH_OPTS $sudo_user@$access_ip -i $inters_home/share/$CLUSTER_NAME $COMMAND || true
 
 dest_dir="."
 upload_dir="$inters_home/upload";
@@ -26,5 +27,5 @@ done
 
 COMMAND="nohup nice -19 bash upload/install.sh </dev/null 2>&1>nohup.out &"
 echo 5
-ssh -o StrictHostKeyChecking=no -o ConnectTimeout=3 $sudo_user@$access_ip -i $inters_home/share/$CLUSTER_NAME "$COMMAND"
+ssh $SSH_OPTS $sudo_user@$access_ip -i $inters_home/share/$CLUSTER_NAME "$COMMAND"
 
