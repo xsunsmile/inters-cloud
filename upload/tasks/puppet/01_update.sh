@@ -18,8 +18,8 @@ no_puppetuser=`id puppet`
 [ -z "$no_puppetuser" ] && sudo useradd -d /var/lib/puppet -s /bin/false puppet
 
 sudo $gembin_path/puppetd --test --verbose 2>&1 > /tmp/puppet.log
-[ -e /tmp/puppet.log ] && sudo chmod 777 /tmp/puppet.log
 [ -e /tmp/torque ] && sudo chmod 777 /tmp/torque
+[ -e /tmp/puppet.log ] && sudo chmod 777 /tmp/puppet.log
 
 grep "Retrieved certificate does not match private key" /tmp/puppet.log 2>&1 > /dev/null && remove_ssl='1'
 grep "err" /tmp/puppet.log 2>&1 > /dev/null && set_cron='1'
@@ -36,11 +36,11 @@ if [ -e /tmp/puppet.log ]; then
 	grep "Retrieved certificate does not match private key" /tmp/puppet.log 2>&1 > /dev/null \
 		&& sudo rm -rf /etc/puppet/ssl
 	grep "err" /tmp/puppet.log || whenever -c 'run puppet periodically'
-	sudo rm /tmp/puppet.log
+	sudo mv /tmp/puppet.log /tmp/puppet.\`date +%Y%m%d%H%M%S\`.log
 fi
 EOF
 	sudo chmod a+x /tmp/puppet.cron
-	[ -e /tmp/puppet.log ] && sudo rm /tmp/puppet.log
+	[ -e /tmp/puppet.log ] && sudo mv /tmp/puppet.log /tmp/puppet.`date +%Y%m%d%H%M%S`.log
 	$gembin_path/whenever -i 'run puppet periodically' -f `dirname $0`/config/schedule.rb
 	cp -pr `dirname $0`/config /tmp/
 fi
