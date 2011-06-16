@@ -25,6 +25,12 @@ have_puppet_ca=`sudo $gembin_path/puppetca list --all | grep puppet`
 cat <<EOF > autosign.conf
 *.$auto_domain
 EOF
+cat <<PUPPETD_CONF > puppet.conf
+[main]
+pluginsync = true
+PUPPETD_CONF
+[ -e /etc/puppet/puppet.conf ] || sudo mv puppet.conf /etc/puppet/
+
 sudo mv autosign.conf /etc/puppet/
 sudo cp -pr $base_dir/namespaceauth.conf /etc/puppet/
 sudo cp -pr $base_dir/modules /etc/puppet/

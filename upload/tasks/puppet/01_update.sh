@@ -14,6 +14,13 @@ fi
 
 gembin_path=`gem1.8 env | grep "EXECUTABLE DIRECTORY" | awk '{print $4}'`
 
+cat <<PUPPETD_CONF > puppet.conf
+[main]
+pluginsync = true
+PUPPETD_CONF
+[ -e /etc/puppet ] || sudo mkdir /etc/puppet && sudo chown -R puppet.puppet /etc/puppet
+[ -e /etc/puppet/puppet.conf ] || sudo mv puppet.conf /etc/puppet/
+
 no_puppetuser=`id puppet`
 [ -z "$no_puppetuser" ] && sudo useradd -d /var/lib/puppet -s /bin/false puppet
 
