@@ -8,13 +8,26 @@ node /__HOSTNAME_BASE__$/ {
 
 	package { mailutils: ensure => installed }
 
-	tinc::vpn_net { inters:
-		tinc_interface => 'eth0',
-		tinc_internal_interface => 'eth0',
-		key_source_path => '/etc/tinc',
-		vpn_subnet_ip => $vpn_ipaddress,
-		vpn_subnet_mask => '255.255.255.0',
+	if $hostname == extlookup('torque_master_name') {
+		tinc::vpn_net { inters:
+			tinc_interface => $tinc_eth,
+		        tinc_internal_interface => $tinc_eth,
+			key_source_path => '/etc/tinc',
+			vpn_subnet_ip => regsubst($vpn_ipaddress,'^(\d+)\.(\d+)\.(\d+)\.(\d+)$','\1.\2.\3.0'),
+			vpn_subnet_mask => '255.255.255.0',
+			vpn_subnet_mask32bits => '24',
+		}
+	} else {
+		tinc::vpn_net { inters:
+			tinc_interface => $tinc_eth,
+	        	tinc_internal_interface => $tinc_eth,
+			key_source_path => '/etc/tinc',
+			vpn_subnet_ip => $vpn_ipaddress,
+			vpn_subnet_mask => '255.255.255.0',
+			vpn_subnet_mask32bits => '32',
+		}
 	}
+
 }
 
 

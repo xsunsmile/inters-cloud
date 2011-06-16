@@ -31,4 +31,5 @@ echo "torque_complie_args_extra," | tee -a $cluster_csv
 echo "torque_spool_dir," | tee -a $cluster_csv
 echo "torque_user_not_root,ubuntu" | tee -a $cluster_csv
 echo "hostname_s," | tee -a $cluster_csv
+echo "tinc_vpn_master,$CLUSTER_NAME$hostnum${CLUSTER_DOMAIN//\./}" | tee -a $cluster_csv
 
