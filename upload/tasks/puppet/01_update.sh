@@ -25,7 +25,6 @@ no_puppetuser=`id puppet`
 [ -z "$no_puppetuser" ] && sudo useradd -d /var/lib/puppet -s /bin/false puppet
 
 sudo $gembin_path/puppetd --test --verbose 2>&1 > /tmp/puppet.log
-[ -e /tmp/torque ] && sudo chmod 777 /tmp/torque
 [ -e /tmp/puppet.log ] && sudo chmod 777 /tmp/puppet.log
 
 grep "Retrieved certificate does not match private key" /tmp/puppet.log 2>&1 > /dev/null && remove_ssl='1'
@@ -36,28 +35,26 @@ if [ "$set_cron" = "1" ]; then
 	[ -e /tmp/puppet.cron ] && sudo rm /tmp/puppet.cron
 	cat <<EOF > /tmp/puppet.cron
 running=\`ps aux | grep [p]uppetd\`
-noerror="error"
 [ -z "\$running" ] && sudo $gembin_path/puppetd --test --verbose 2>&1 > /tmp/puppet.log
-[ -e /tmp/torque ] && sudo chmod 777 /tmp/torque
 if [ -e /tmp/puppet.log ]; then
 	sudo chmod 777 /tmp/puppet.log
 	grep "Retrieved certificate does not match private key" /tmp/puppet.log 2>&1 > /dev/null \
 		&& sudo rm -rf /etc/puppet/ssl
+	noerror="error"
 	grep "err" /tmp/puppet.log || noerror="noerror"
 	sudo mv /tmp/puppet.log /tmp/\${noerror}_puppet.\`date +%Y%m%d%H%M%S\`.log
 	if [ "\$noerror" = "noerror" ]; then
-		crontab -l > /tmp/crontab.backup || echo "no jobs"	
+		crontab -l > /tmp/crontab.backup || echo "no jobs"
 		sed -i "/puppet.cron/d" /tmp/crontab.backup
 		crontab < /tmp/crontab.backup
 	fi
 fi
 EOF
 	sudo chmod a+x /tmp/puppet.cron
-	[ -e /tmp/puppet.log ] && sudo mv /tmp/puppet.log /tmp/puppet.`date +%Y%m%d%H%M%S`.log
+	[ -e /tmp/puppet.log ] && sudo mv /tmp/puppet.log /tmp/first_puppet.`date +%Y%m%d%H%M%S`.log
 	crontab -l > /tmp/crontab.backup || echo "no jobs"
-	echo "*/1 * * * * cd /tmp && ./puppet.cron" >> /tmp/crontab.backup	
+	echo "*/1 * * * * cd /tmp && ./puppet.cron" >> /tmp/crontab.backup
 	crontab < /tmp/crontab.backup
 	cp -pr `dirname $0`/config /tmp/
 fi
-
 
