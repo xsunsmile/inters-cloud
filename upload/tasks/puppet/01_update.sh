@@ -40,10 +40,9 @@ if [ -e /tmp/puppet.log ]; then
 	sudo chmod 777 /tmp/puppet.log
 	grep "Retrieved certificate does not match private key" /tmp/puppet.log 2>&1 > /dev/null \
 		&& sudo rm -rf /etc/puppet/ssl
-	noerror="error"
-	grep "err" /tmp/puppet.log || noerror="noerror"
-	sudo mv /tmp/puppet.log /tmp/\${noerror}_puppet.\`date +%Y%m%d%H%M%S\`.log
-	if [ "\$noerror" = "noerror" ]; then
+	errnum=\`grep -c "err" /tmp/puppet.log\`
+	sudo mv /tmp/puppet.log /tmp/\${errnum}_puppet.\`date +%Y%m%d%H%M%S\`.log
+	if [ \$errnum -eq 0 ]; then
 		crontab -l > /tmp/crontab.backup || echo "no jobs"
 		sed -i "/puppet.cron/d" /tmp/crontab.backup
 		crontab < /tmp/crontab.backup
