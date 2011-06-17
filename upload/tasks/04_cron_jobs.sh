@@ -9,7 +9,7 @@ succeed="true"
 SED=$(which gsed || which sed)
 ping -c1 -t1 $vpn_address_master || succeed="false"
 if [ "\$succeed" = "false" ]; then
-	echo sudo /etc/init.d/tinc restart
+	sudo /etc/init.d/tinc restart
 else
 	crontab -l > /tmp/crontab.output
 	\$SED -i "/test_vpn.sh/d" /tmp/crontab.output
