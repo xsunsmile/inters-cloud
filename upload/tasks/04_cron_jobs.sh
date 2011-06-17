@@ -18,7 +18,7 @@ fi
 TEST_VPN
 chmod +x /tmp/test_vpn.sh
 
-crontab -l > crontab.input
+crontab -l > crontab.input || echo "no old cron jobs"
 cat <<CRONTAB >> crontab.input
 */1 * * * * . /tmp/test_vpn.sh
 CRONTAB

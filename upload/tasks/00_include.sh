@@ -4,7 +4,8 @@ set -u
 
 current_dir=`dirname $0`
 DBNAME="$current_dir/env.db"
-sqlite3 $DBNAME < env.sql
+[ -e $DBNAME ] && rm -rf $DBNAME && echo "createdb: $DBNAME"
+sqlite3 $DBNAME < $current_dir/env.sql
 
 instance_id=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
 
