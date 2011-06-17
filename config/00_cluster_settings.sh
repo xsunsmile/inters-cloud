@@ -1,26 +1,29 @@
 #!/bin/bash
-set -e
+set +e
 
 export CLUSTER_NAME="kuruwa"
 export CLUSTER_DOMAIN="alab.nii.ac.jp"
 
-INSTANCE_TABLE="create table instances (id INTEGER PRIMARY KEY,instance_id TEXT,prop TEXT,value TEXT);"
-CLUSTER_TABLE="create table cluster (id INTEGER PRIMARY KEY,prop TEXT,value TEXT);"
-
 current_dir=$(dirname "$BASH_SOURCE")
-DBPATH=$current_dir/../upload/db
+DBPATH=$current_dir/../db
 DBNAME=$DBPATH/${CLUSTER_NAME}_${CLUSTER_DOMAIN}_db
+
+ID=`date +%Y%m%d%H%M%S`
+cat <<TEMP_STRUCTURE > /tmp/${ID}_tmpstructure
+begin exclusive transaction;
+create table if not exists instances (id INTEGER PRIMARY KEY,instance_id TEXT,prop TEXT,value TEXT);
+create table if not exists cluster (id INTEGER PRIMARY KEY,prop TEXT,value TEXT);
+insert or ignore into cluster (id, prop,value) values (1, 'cluster_name','$CLUSTER_NAME');
+insert or ignore into cluster (id, prop,value) values (2, 'cluster_domain','$CLUSTER_DOMAIN');
+insert or ignore into cluster (id, prop,value) values (3, 'instances_num','1');
+end transaction;
+TEMP_STRUCTURE
 
 if [ ! -e $DBNAME -a ${#1} -eq 0 ]; then
 	[ ! -e $DBPATH ] && mkdir -p $DBPATH
-	cat /dev/null > $DBNAME
-	echo $CLUSTER_TABLE | tee -a /tmp/tmpstructure
-	echo $INSTANCE_TABLE | tee -a /tmp/tmpstructure
-	sqlite3 $DBNAME < /tmp/tmpstructure;
-	rm -f /tmp/tmpstructure;
-	sqlite3 $DBNAME "insert into cluster (prop,value) values ('cluster_name','$CLUSTER_NAME');"
-	sqlite3 $DBNAME "insert into cluster (prop,value) values ('cluster_domain','$CLUSTER_DOMAIN');"
-	sqlite3 $DBNAME "insert into cluster (prop,value) values ('instances_num','1');"
+	touch $DBNAME
+	sqlite3 $DBNAME < /tmp/${ID}_tmpstructure
 fi
-
+rm -f /tmp/${ID}_tmpstructure;
 set +e
+

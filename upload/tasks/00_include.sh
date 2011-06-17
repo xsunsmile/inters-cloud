@@ -3,9 +3,11 @@ set -e
 set -u
 
 current_dir=`dirname $0`
-DBNAME=`ls $current_dir/../db/*_db`
+DBNAME="$current_dir/env.db"
+sqlite3 $DBNAME < env.sql
 
 instance_id=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+
 CLUSTER_NAME=`sqlite3 $DBNAME "select value from cluster where prop='cluster_name'"`;
 CLUSTER_DOMAIN=`sqlite3 $DBNAME "select value from cluster where prop='cluster_domain'"`;
 hostname_f=`sqlite3 $DBNAME "select value from instances where instance_id='$instance_id' and prop='hostname'"`;

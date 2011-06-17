@@ -4,7 +4,7 @@ set -u
 
 source $temp_env/include
 
-[ $hostnum -ne 1 ] && exit 0
+[ "$hostnum" != "1" ] && exit 0
 pub_ip=`ec2-describe-addresses | awk '{print $2}'`
 if [ -z "$pub_ip" ]; then
 	pub_ip=`ec2-allocate-address | awk '{print $2}'`
