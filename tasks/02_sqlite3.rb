@@ -46,18 +46,25 @@ end
 dbpath = ARGV.shift
 operation = ARGV.shift
 
-db = SQLite3::Database.new(dbpath)
-db.busy_handler do |retries|
-	sleep 1+(rand * 100).ceil/100.0
-	(retries<=10)
+while true
+	begin
+		$db = SQLite3::Database.new(dbpath)
+		$db.busy_handler do |retries|
+			(retries<=10)
+		end
+		$db.busy_timeout(1000+(rand * 100).ceil/100.0)
+		break
+	rescue => e
+		puts e.inspect
+		sleep 1+(rand * 100).ceil/100.0
+	end
 end
-
 
 case operation
 	when 'get_hostnum'
-		get_hostnum(db)
+		get_hostnum($db)
 	when 'add_hostinfo'
-		add_hostinfo(db)
+		add_hostinfo($db)
 end
+$db.close if $db
 
-db.close

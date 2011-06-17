@@ -21,7 +21,7 @@ for setting in \$(ls \$inters_config_dir/*sh); do
 	source \$setting
 done
 
-DBNAME="\$inters_home/upload/db/\${CLUSTER_NAME}_\${CLUSTER_DOMAIN}_db"
+[ -e "\$inters_home/db/\${CLUSTER_NAME}_\${CLUSTER_DOMAIN}_db" ] && DBNAME="\$inters_home/db/\${CLUSTER_NAME}_\${CLUSTER_DOMAIN}_db"
 
 ENV
 

@@ -15,6 +15,7 @@ ServerAliveInterval 30
 user ubuntu
 StrictHostKeyChecking no
 identityFile $inters_home/share/$keypair
+
 EOF
 fi
 
