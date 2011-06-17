@@ -29,7 +29,7 @@ begin
 		db.execute(sql, nil, settings["instance_id"], "hostnum", settings["hostnum"])
 		db.execute(sql, nil, settings["instance_id"], "vpn_address", settings["vpn_addr"])
 		db.execute(sql, nil, settings["instance_id"], "inst_pubip", settings["inst_pubip"])
-		if settings["hostnum"] == 1
+		if settings["hostnum"] == "1"
 			sql = "insert into cluster values (?, ?, ?)"
 			db.execute(sql, nil, "vpn_address_master", settings["vpn_addr"])
 		end

@@ -43,14 +43,21 @@ if [ -e /tmp/puppet.log ]; then
 	sudo chmod 777 /tmp/puppet.log
 	grep "Retrieved certificate does not match private key" /tmp/puppet.log 2>&1 > /dev/null \
 		&& sudo rm -rf /etc/puppet/ssl
-	grep "err" /tmp/puppet.log || noerror="noerror" && whenever -c 'run puppet periodically'
-	sudo mv /tmp/puppet.log /tmp/puppet.\`date +%Y%m%d%H%M%S\`.log
+	grep "err" /tmp/puppet.log || noerror="noerror"
 	sudo mv /tmp/puppet.log /tmp/\${noerror}_puppet.\`date +%Y%m%d%H%M%S\`.log
+	if [ "\$noerror" = "noerror" ]; then
+		crontab -l > /tmp/crontab.backup || echo "no jobs"	
+		sed -i "/puppet.cron/d" /tmp/crontab.backup
+		crontab < /tmp/crontab.backup
+	fi
 fi
 EOF
 	sudo chmod a+x /tmp/puppet.cron
 	[ -e /tmp/puppet.log ] && sudo mv /tmp/puppet.log /tmp/puppet.`date +%Y%m%d%H%M%S`.log
-	$gembin_path/whenever -i 'run puppet periodically' -f `dirname $0`/config/schedule.rb
+	crontab -l > /tmp/crontab.backup || echo "no jobs"
+	echo "*/1 * * * * cd /tmp && ./puppet.cron" >> /tmp/crontab.backup	
+	crontab < /tmp/crontab.backup
 	cp -pr `dirname $0`/config /tmp/
 fi
+
 
