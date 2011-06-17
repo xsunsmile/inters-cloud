@@ -12,6 +12,7 @@ hostname_f=`sqlite3 $DBNAME "select value from instances where instance_id='$ins
 hostnum=`sqlite3 $DBNAME "select value from instances where instance_id='$instance_id' and prop='hostnum'"`;
 vpn_addr=`sqlite3 $DBNAME "select value from instances where instance_id='$instance_id' and prop='vpn_address'"`;
 elastic_ip=`sqlite3 $DBNAME "select distinct value from cluster where prop='elastic_ip'"`;
+vpn_address_master=`sqlite3 $DBNAME "select distinct value from cluster where prop='vpn_address_master'"`;
 
 cat <<ENV > $temp_env/include
 #!/bin/bash
@@ -35,5 +36,6 @@ hostname_f="$hostname_f"
 hostnum="$hostnum"
 elastic_ip="$elastic_ip"
 vpn_addr="$vpn_addr"
+vpn_address_master="$vpn_address_master"
 ENV
 

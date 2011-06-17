@@ -36,14 +36,16 @@ if [ "$set_cron" = "1" ]; then
 	[ -e /tmp/puppet.cron ] && sudo rm /tmp/puppet.cron
 	cat <<EOF > /tmp/puppet.cron
 running=\`ps aux | grep [p]uppetd\`
+noerror="error"
 [ -z "\$running" ] && sudo $gembin_path/puppetd --test --verbose 2>&1 > /tmp/puppet.log
 [ -e /tmp/torque ] && sudo chmod 777 /tmp/torque
 if [ -e /tmp/puppet.log ]; then
 	sudo chmod 777 /tmp/puppet.log
 	grep "Retrieved certificate does not match private key" /tmp/puppet.log 2>&1 > /dev/null \
 		&& sudo rm -rf /etc/puppet/ssl
-	grep "err" /tmp/puppet.log || whenever -c 'run puppet periodically'
+	grep "err" /tmp/puppet.log || noerror="noerror" && whenever -c 'run puppet periodically'
 	sudo mv /tmp/puppet.log /tmp/puppet.\`date +%Y%m%d%H%M%S\`.log
+	sudo mv /tmp/puppet.log /tmp/\${noerror}_puppet.\`date +%Y%m%d%H%M%S\`.log
 fi
 EOF
 	sudo chmod a+x /tmp/puppet.cron
