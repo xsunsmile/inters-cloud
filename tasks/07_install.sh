@@ -6,9 +6,11 @@ source $temp_env/include
 
 sudo_user="ubuntu"
 access_ip=$inst_pubip
-[ "$hostnum" = 1 ] && access_ip=$elastic_ip
-ssh-keygen -R $access_ip
+if [ "$hostnum" = 1 ]; then 
+	access_ip=$elastic_ip
+fi
 
+ssh-keygen -R $access_ip
 chmod +x $inters_home/upload/install.sh
 
 SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=30"
