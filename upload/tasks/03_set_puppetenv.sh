@@ -20,7 +20,7 @@ mongodb_repo="deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 1
 
 echo "mongodb_repo,$mongodb_repo" | tee -a $cluster_csv
 echo "mongodb_host,$elastic_ip" | tee -a $cluster_csv
-echo "mongodb_version,1.8.1" | tee -a $cluster_csv
+echo "mongodb_version," | tee -a $cluster_csv
 echo "mongodb_install_src,/tmp/mongodb" | tee -a $cluster_csv
 echo "torque_install_dist,/usr/local" | tee -a $cluster_csv
 echo "torque_install_src,/tmp/torque" | tee -a $cluster_csv
