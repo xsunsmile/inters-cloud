@@ -26,7 +26,9 @@ if [ "\$success" = "true" ]; then
 fi
 
 upload_ok="false"
-tinc_file="\${cluster_name}gw\${cluster_domain}"
+hostname_s="\`hostname -s\`"
+hostname_tinc=\${hostname_s//-/}
+tinc_file="\${hostname_tinc}\${cluster_domain}"
 dest_dir="/etc/tinc/inters/hosts/\$tinc_file"
 scp -i $inters_home/upload/id_rsa \$dest_dir root@$access_ip:\$dest_dir && upload_ok="true"
 if [ "\$upload_ok" = "true" -a "\$success" = "true" ]; then
