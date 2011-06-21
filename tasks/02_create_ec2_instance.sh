@@ -48,9 +48,10 @@ set -e
 hostnum=`ruby $current_dir/02_sqlite3.rb $DBNAME get_hostnum`
 echo "hostnum is $hostnum"
 
-vpn_hostaddr=$(($hostnum+20))
+vpn_hostaddr=$(($hostnum+2))
 vpn_addr=$vpn_netaddr$vpn_hostaddr
 hostname="$CLUSTER_NAME$hostnum.$CLUSTER_DOMAIN"
+[ "$hostnum" = "1" ] && hostname=`hostname -f`
 
 cat <<EOF > $temp_env/host_settings.sh
 hostnum="$hostnum"

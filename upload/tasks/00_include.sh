@@ -11,7 +11,7 @@ instance_id=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
 
 CLUSTER_NAME=`sqlite3 $DBNAME "select value from cluster where prop='cluster_name'"`;
 CLUSTER_DOMAIN=`sqlite3 $DBNAME "select value from cluster where prop='cluster_domain'"`;
-hostname_f=`sqlite3 $DBNAME "select value from instances where instance_id='$instance_id' and prop='hostname'"`;
+hostname=`sqlite3 $DBNAME "select value from instances where instance_id='$instance_id' and prop='hostname'"`;
 hostnum=`sqlite3 $DBNAME "select value from instances where instance_id='$instance_id' and prop='hostnum'"`;
 vpn_addr=`sqlite3 $DBNAME "select value from instances where instance_id='$instance_id' and prop='vpn_address'"`;
 elastic_ip=`sqlite3 $DBNAME "select distinct value from cluster where prop='elastic_ip'"`;
@@ -35,7 +35,7 @@ export JAVA_HOME="/usr/lib/jvm/java-6-openjdk"
 CLUSTER_NAME="$CLUSTER_NAME"
 CLUSTER_DOMAIN="$CLUSTER_DOMAIN"
 instance_id="$instance_id"
-hostname_f="$hostname_f"
+hostname_f="$hostname"
 hostnum="$hostnum"
 elastic_ip="$elastic_ip"
 vpn_addr="$vpn_addr"

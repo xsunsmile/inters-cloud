@@ -4,7 +4,7 @@ set -u
 
 source $temp_env/include
 
-instance_tag="$CLUSTER_NAME""$hostnum"
+instance_tag="${hostname_f%%.$CLUSTER_DOMAIN}"
 node_id=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
 echo "$instance_tag" | sudo tee /etc/hostname
 sudo hostname $instance_tag
@@ -69,4 +69,5 @@ SSHCONFIG
 cp config $HOME/.ssh/
 sudo cp config /root/.ssh/
 sudo mv config /etc/skel/
+sudo ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime || true
 

@@ -27,7 +27,7 @@ fi
 
 upload_ok="false"
 hostname_s="\`hostname -s\`"
-hostname_tinc=\${hostname_s//-/}
+hostname_tinc=\${hostname_s//[^0-9a-zA-Z]/}
 tinc_file="\${hostname_tinc}\${cluster_domain}"
 dest_dir="/etc/tinc/inters/hosts/\$tinc_file"
 scp -i $inters_home/upload/id_rsa \$dest_dir root@$access_ip:\$dest_dir && upload_ok="true"
@@ -41,7 +41,7 @@ fi
 TINC
 	chmod +x /tmp/add_tinchosts
 	crontab -l > /tmp/crontab.backup || true
-	echo "*/1 * * * * . /tmp/add_tinchosts" > /tmp/crontab.backup
+	echo "*/1 * * * * bash /tmp/add_tinchosts" > /tmp/crontab.backup
 	crontab < /tmp/crontab.backup
 	rm /tmp/crontab.backup
 fi

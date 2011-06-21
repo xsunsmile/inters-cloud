@@ -18,10 +18,33 @@ fi
 TEST_VPN
 chmod +x /tmp/test_vpn.sh
 
+cat <<TEST_TORQUE > /tmp/check_torque.sh
+#!/bin/bash
+set -e
+set -u
+
+if [ -e /tmp/restart.torque ]; then
+	rm /tmp/restart.torque
+	sudo /etc/init.d/pbs_server restart
+fi
+if [ -e /tmp/delete_restart_torque ]; then
+	rm /tmp/delete_restart_torque
+	cronbackup="crontab.input\${RANDOM}"
+	crontab -l > \$cronbackup || echo "no old cron jobs"
+	sed -i "/check_torque.sh/d" \$cronbackup
+	crontab < \$cronbackup
+	rm \$cronbackup
+fi
+
+TEST_TORQUE
+chmod +x /tmp/check_torque.sh
+
 crontab -l > crontab.input || echo "no old cron jobs"
 cat <<CRONTAB >> crontab.input
-*/1 * * * * . /tmp/test_vpn.sh
+*/1 * * * * bash /tmp/test_vpn.sh
+*/1 * * * * bash /tmp/check_torque.sh
 CRONTAB
 
 crontab < crontab.input
+rm crontab.input
 

@@ -25,7 +25,7 @@ echo "mongodb_install_src,/tmp/mongodb" | tee -a $cluster_csv
 echo "torque_install_dist,/usr/local" | tee -a $cluster_csv
 echo "torque_install_src,/tmp/torque" | tee -a $cluster_csv
 echo "torque_admin,root" | tee -a $cluster_csv
-echo "torque_master_name,${CLUSTER_NAME}1" | tee -a $cluster_csv
+echo "torque_master_name,`hostname -s`" | tee -a $cluster_csv
 echo "torque_version,2.5.5" | tee -a $cluster_csv
 echo "torque_complie_args_extra," | tee -a $cluster_csv
 echo "torque_spool_dir," | tee -a $cluster_csv
