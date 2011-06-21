@@ -17,7 +17,7 @@ fi
 cluster_csv="$HOME/upload/tasks/puppet/manifests/extdata/common.csv"
 [ -e $cluster_csv ] && rm -rf $cluster_csv
 mongodb_repo="deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen"
-
+hostname=`hostname -s`
 echo "mongodb_repo,$mongodb_repo" | tee -a $cluster_csv
 echo "mongodb_host,$elastic_ip" | tee -a $cluster_csv
 echo "mongodb_version," | tee -a $cluster_csv
@@ -31,5 +31,5 @@ echo "torque_complie_args_extra," | tee -a $cluster_csv
 echo "torque_spool_dir," | tee -a $cluster_csv
 echo "torque_user_not_root,ubuntu" | tee -a $cluster_csv
 echo "hostname_s," | tee -a $cluster_csv
-echo "tinc_vpn_master,$CLUSTER_NAME$hostnum${CLUSTER_DOMAIN//\./}" | tee -a $cluster_csv
+echo "tinc_vpn_master,${hostname//[^0-9a-zA-Z]/}${CLUSTER_DOMAIN//\./}" | tee -a $cluster_csv
 
