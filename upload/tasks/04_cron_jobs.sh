@@ -24,11 +24,11 @@ set -e
 set -u
 
 if [ -e /tmp/restart.torque ]; then
-	rm /tmp/restart.torque
+	sudo rm /tmp/restart.torque
 	sudo /etc/init.d/pbs_server restart
 fi
 if [ -e /tmp/delete_restart_torque ]; then
-	rm /tmp/delete_restart_torque
+	sudo rm /tmp/delete_restart_torque
 	cronbackup="crontab.input\${RANDOM}"
 	crontab -l > \$cronbackup || echo "no old cron jobs"
 	sed -i "/check_torque.sh/d" \$cronbackup
