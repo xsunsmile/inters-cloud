@@ -23,8 +23,9 @@ ssh-keygen -R kuruwa-gw-ec2
 SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=30"
 ssh \$SSH_OPTS -i $inters_home/upload/id_rsa $sync_to hostname
 
-online_nodes=\$(qstat -e -n -1 | grep " R " | awk '{print \$12}' | awk -F/ '{print \$1}' | sort | uniq)
-online_jobs=\$(qstat -e -n -1 | grep " R " | awk '{print \$1}' | awk -F\. '{print \$1}')
+# QSTAT=\$(which qstat)
+online_nodes=\$(/usr/local/bin/qstat -e -n -1 | grep " R " | awk '{print \$12}' | awk -F/ '{print \$1}' | sort | uniq)
+online_jobs=\$(/usr/local/bin/qstat -e -n -1 | grep " R " | awk '{print \$1}' | awk -F\. '{print \$1}')
 
 for node in \$online_nodes; do
 	echo "\$node is online"

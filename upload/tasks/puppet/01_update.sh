@@ -14,15 +14,15 @@ fi
 
 gembin_path=`gem1.8 env | grep "EXECUTABLE DIRECTORY" | awk '{print $4}'`
 
+no_puppetuser=`id puppet`
+[ -z "$no_puppetuser" ] && sudo useradd -d /var/lib/puppet -s /bin/false puppet
+[ -e /etc/puppet ] || sudo mkdir /etc/puppet && sudo chown -R puppet.puppet /etc/puppet
+
 cat <<PUPPETD_CONF > puppet.conf
 [main]
 pluginsync = true
 PUPPETD_CONF
-[ -e /etc/puppet ] || sudo mkdir /etc/puppet && sudo chown -R puppet.puppet /etc/puppet
 [ -e /etc/puppet/puppet.conf ] || sudo mv puppet.conf /etc/puppet/
-
-no_puppetuser=`id puppet`
-[ -z "$no_puppetuser" ] && sudo useradd -d /var/lib/puppet -s /bin/false puppet
 
 sudo $gembin_path/puppetd --test --verbose 2>&1 > /tmp/puppet.log
 [ -e /tmp/puppet.log ] && sudo chmod 777 /tmp/puppet.log
@@ -36,6 +36,11 @@ if [ "$set_cron" = "1" ]; then
 	cat <<EOF > /tmp/puppet.cron
 running=\`ps aux | grep [p]uppetd\`
 [ -z "\$running" ] && sudo $gembin_path/puppetd --test --verbose 2>&1 > /tmp/puppet.log
+while :
+do
+	running=\`ps aux | grep [p]uppetd\`
+	[ -z "\$running" ] && break || sleep 10
+done
 if [ -e /tmp/puppet.log ]; then
 	sudo chmod 777 /tmp/puppet.log
 	grep "Retrieved certificate does not match private key" /tmp/puppet.log 2>&1 > /dev/null \

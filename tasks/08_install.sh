@@ -30,8 +30,10 @@ while [ $retries -gt 0 ]; do
 done
 
 dest_dir="."
-upload_dir="$inters_home/upload";
-scp -i $inters_home/share/$CLUSTER_NAME -pr $upload_dir $sudo_user@$access_ip:$dest_dir
+for upload_dir in "$inters_home/upload" "/exports/home/ubuntu/ep.C" "/exports/home/ubuntu/test.sh"
+do
+	scp -i $inters_home/share/$CLUSTER_NAME -pr $upload_dir $sudo_user@$access_ip:$dest_dir
+done
 
 sqlite3 $DBNAME ".dump" > $temp_env/env.sql
 dest_dir="./upload/tasks/"
