@@ -33,3 +33,8 @@ echo "torque_user_not_root,ubuntu" | tee -a $cluster_csv
 echo "hostname_s," | tee -a $cluster_csv
 echo "tinc_vpn_master,${hostname//[^0-9a-zA-Z]/}${CLUSTER_DOMAIN//\./}" | tee -a $cluster_csv
 
+echo "mpiexec_install_dist,/usr/local" | tee -a $cluster_csv
+echo "mpiexec_install_dist3,/usr/local" | tee -a $cluster_csv
+echo "mpiexec_install_src,/tmp/mpiexec" | tee -a $cluster_csv
+echo "mpiexec_version,0.84" | tee -a $cluster_csv
+echo "mpiexec_complie_args_extra," | tee -a $cluster_csv

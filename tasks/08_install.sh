@@ -19,6 +19,7 @@ COMMAND="mkdir .ec2"
 retries=10
 should_retry="false"
 while [ $retries -gt 0 ]; do
+	echo "ssh $SSH_OPTS $sudo_user@$access_ip -i $inters_home/share/$CLUSTER_NAME $COMMAND"
 	ssh $SSH_OPTS $sudo_user@$access_ip -i $inters_home/share/$CLUSTER_NAME $COMMAND || should_retry="true"
 	if [ $should_retry = "true" ]; then
 		sleep 1

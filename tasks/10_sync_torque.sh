@@ -11,8 +11,8 @@ sync_to=${hostname%%.$CLUSTER_DOMAIN}"-ec2"
 sync_from_dir="/var/spool/torque/server_priv"
 sync_to_dir="/var/spool/torque/server_priv"
 
-sed -i "/$vpn_addr/d" /etc/hosts
-sed -i "1i$vpn_addr	$sync_to" /etc/hosts
+sed -i "/$elastic_ip/d" /etc/hosts
+sed -i "1i$elastic_ip	$sync_to" /etc/hosts
 
 cat <<SYNC_CRON > /tmp/sync_torque_info.sh
 #!/bin/bash
