@@ -11,8 +11,9 @@ sync_to=${hostname%%.$CLUSTER_DOMAIN}"-ec2"
 sync_from_dir="/var/spool/torque/server_priv"
 sync_to_dir="/var/spool/torque/server_priv"
 
-sed -i "/$vpn_addr/d" /etc/hosts
-sed -i "1i$vpn_addr	$sync_to" /etc/hosts
+SED=`which gsed || which sed`
+sudo $SED -i "/$vpn_addr/d" /etc/hosts
+sudo $SED -i "1i$vpn_addr	$sync_to" /etc/hosts
 
 cat <<SYNC_CRON > /tmp/sync_torque_info.sh
 #!/bin/bash
@@ -42,7 +43,7 @@ ssh \$SSH_OPTS -i $inters_home/upload/id_rsa $sync_to "touch /tmp/restart.torque
 
 backup_name="crontab.backup\${RANDOM}"
 crontab -l > /tmp/\$backup_name || true
-sed -i "/sync_torque_info.sh/d" /tmp/\$backup_name
+$SED -i "/sync_torque_info.sh/d" /tmp/\$backup_name
 crontab < /tmp/\$backup_name
 rm /tmp/\$backup_name
 

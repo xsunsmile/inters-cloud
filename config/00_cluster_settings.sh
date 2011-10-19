@@ -3,6 +3,8 @@ set +e
 
 export CLUSTER_NAME="kuruwa"
 export CLUSTER_DOMAIN="alab.nii.ac.jp"
+# export CLUSTER_NAME="jade"
+# export CLUSTER_DOMAIN="locondo.co.jp"
 
 current_dir=$(dirname "$BASH_SOURCE")
 DBPATH=$current_dir/../db
