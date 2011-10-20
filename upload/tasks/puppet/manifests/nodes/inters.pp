@@ -5,6 +5,7 @@ node /__HOSTNAME_BASE__$/ {
 	include 'tinc'
 	include 'mongodb'
 	include 'torque'
+	include 'mpiexec'
 
 	package { mailutils: ensure => installed }
 

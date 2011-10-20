@@ -13,6 +13,7 @@ sync_to_dir="/var/spool/torque/server_priv"
 
 SED=`which gsed || which sed`
 sudo $SED -i "/$elastic_ip/d" /etc/hosts
+sudo $SED -i "/$sync_to/d" /etc/hosts
 sudo $SED -i "1i$elastic_ip	$sync_to" /etc/hosts
 
 cat <<SYNC_CRON > /tmp/sync_torque_info.sh
