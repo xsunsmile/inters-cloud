@@ -46,6 +46,7 @@ if [ "$hostnum" = "1" ]; then
   [ ! -e inters ] && git clone https://github.com/xsunsmile/puppet-inters-mgm.git inters
   [ ! -e fpm ] && git clone https://github.com/xsunsmile/puppet-fpm.git fpm
   [ ! -e nginx ] && git clone https://github.com/xsunsmile/puppet-nginx.git nginx
+  [ ! -e mpiexec ] && git clone git://github.com/xsunsmile/puppet-mpiexec-ohio.git mpiexec
   cat <<EOF >update.sh
 origin_dir=`pwd`
 for funs in fpm common inters mongodb tinc torque apt
